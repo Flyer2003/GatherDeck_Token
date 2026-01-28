@@ -185,30 +185,6 @@ const ApplicationForm = ({ user }: { user: User }) => {
         </div>
 
         <div className="flex flex-col gap-6 xl:flex-row">
-          <CustomFormField 
-                fieldType={FormFieldType.SELECT}
-                control={form.control}
-                name="eventCordinator"
-                label="Event Cordinator"
-                placeholder="Select Cordinator">
-                  {Managers.map((manager) => (
-                    <SelectItem key={manager.name} value={manager.name}>
-                      <div className="flex cursor-pointer items-center gap-2">
-                        <Image 
-                          src={manager.image}
-                          width={32}
-                          height={32}
-                          alt={manager.name}
-                          className="rounded-full border border-dark-500"
-                        />
-                        <p>{manager.name}</p>
-                      </div>
-                    </SelectItem>
-                  ))}
-          </CustomFormField>
-        </div>
-
-        <div className="flex flex-col gap-6 xl:flex-row">
 
           <CustomFormField 
               fieldType={FormFieldType.TEXTAREA}

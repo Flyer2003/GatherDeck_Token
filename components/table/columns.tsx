@@ -5,14 +5,20 @@ import Image from "next/image";
 
 import StatusBadge from "../StatusBadge";
 import BookingModel from "../BookingModel";
+import UserDetailsModal from "../UserDetailsModal";
 import { formatDateTime } from "@/lib/utils";
 import { Managers } from "@/constants";
 import { Booking } from "@/types/appwrite.types";
 
+const getManagerByValue = (value?: string) => {
+  if (!value || value === "none") return null;
+  return Managers.find((m) => m.value === value) ?? null;
+};
+
 export const columns: ColumnDef<Booking>[] = [
   {
     header: "Id",
-    cell: ({ row }) => <p className="text-14-medium">{row.index + 1}</p>,
+    cell: ({ row }) => <p>{row.index + 1}</p>,
   },
 
   {
@@ -20,9 +26,7 @@ export const columns: ColumnDef<Booking>[] = [
     header: "Event",
     cell: ({ row }) => {
       const booking = row.original as any;
-      return (
-        <p className="text-14-medium">{booking?.event?.name ?? "No Event"}</p>
-      );
+      return <p>{booking?.event?.name ?? "No Event"}</p>;
     },
   },
 
@@ -30,19 +34,15 @@ export const columns: ColumnDef<Booking>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <div className="min-w-[115px]">
-        <StatusBadge status={row.original.status} />
-      </div>
+      <StatusBadge status={row.original.status} />
     ),
   },
 
   {
     accessorKey: "schedule",
-    header: "Booking",
+    header: "Booking Date",
     cell: ({ row }) => (
-      <p className="text-14-regular min-w-[150px]">
-        {formatDateTime(row.original.schedule).dateTime}
-      </p>
+      <p>{formatDateTime(row.original.schedule).dateTime}</p>
     ),
   },
 
@@ -50,24 +50,21 @@ export const columns: ColumnDef<Booking>[] = [
     accessorKey: "eventManager",
     header: "Event Manager",
     cell: ({ row }) => {
-      const booking = row.original as any;
-      const manager = Managers.find((man) => man.name === booking.eventManager);
-
+      const manager = getManagerByValue(row.original.eventManager);
       return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {manager?.image ? (
             <Image
               src={manager.image}
               alt={manager.name}
-              width={32}
-              height={32}
-              className="size-8 rounded-full"
+              width={28}
+              height={28}
+              className="rounded-full"
             />
           ) : (
-            <div className="size-8 rounded-full bg-gray-600" />
+            <div className="size-7 rounded-full bg-gray-600" />
           )}
-
-          <p className="whitespace-nowrap">{manager?.name ?? "Not selected"}</p>
+          <span>{manager?.name ?? "Not selected"}</span>
         </div>
       );
     },
@@ -77,26 +74,8 @@ export const columns: ColumnDef<Booking>[] = [
     accessorKey: "catering",
     header: "Catering",
     cell: ({ row }) => {
-      const booking = row.original as any;
-      const manager = Managers.find((man) => man.name === booking.catering);
-
-      return (
-        <div className="flex items-center gap-3">
-          {manager?.image ? (
-            <Image
-              src={manager.image}
-              alt={manager.name}
-              width={32}
-              height={32}
-              className="size-8 rounded-full"
-            />
-          ) : (
-            <div className="size-8 rounded-full bg-gray-600" />
-          )}
-
-          <p className="whitespace-nowrap">{manager?.name ?? "Not selected"}</p>
-        </div>
-      );
+      const manager = getManagerByValue(row.original.catering);
+      return <span>{manager?.name ?? "Not selected"}</span>;
     },
   },
 
@@ -104,50 +83,54 @@ export const columns: ColumnDef<Booking>[] = [
     accessorKey: "venue",
     header: "Venue",
     cell: ({ row }) => {
+      const manager = getManagerByValue(row.original.venue);
+      return <span>{manager?.name ?? "Not selected"}</span>;
+    },
+  },
+
+  /* 🟢 USER DETAILS BUTTON */
+  {
+    id: "userDetails",
+    header: "User",
+    cell: ({ row }) => {
       const booking = row.original as any;
-      const manager = Managers.find((man) => man.name === booking.venue);
 
       return (
-        <div className="flex items-center gap-3">
-          {manager?.image ? (
-            <Image
-              src={manager.image}
-              alt={manager.name}
-              width={32}
-              height={32}
-              className="size-8 rounded-full"
-            />
-          ) : (
-            <div className="size-8 rounded-full bg-gray-600" />
-          )}
-
-          <p className="whitespace-nowrap">{manager?.name ?? "Not selected"}</p>
-        </div>
+        <UserDetailsModal
+          email={booking?.user?.email}
+          phone={booking?.user?.phone}
+        />
       );
     },
   },
 
   {
     id: "actions",
-    header: () => <div className="pl-4">Actions</div>,
-    cell: ({ row: { original: data } }) => {
-      return (
-        <div className="flex gap-1">
-          <BookingModel
-            type="schedule"
-            eventId={typeof data.event === "string" ? data.event : data.event.$id}
-            userId={data.userId}
-            booking={data}
-          />
+    header: "Actions",
+    cell: ({ row: { original } }) => (
+      <div className="flex gap-1">
+        <BookingModel
+          type="schedule"
+          eventId={
+            typeof original.event === "string"
+              ? original.event
+              : original.event.$id
+          }
+          userId={original.userId}
+          booking={original}
+        />
 
-          <BookingModel
-            type="cancel"
-            eventId={typeof data.event === "string" ? data.event : data.event.$id}
-            userId={data.userId}
-            booking={data}
-          />
-        </div>
-      );
-    },
+        <BookingModel
+          type="cancel"
+          eventId={
+            typeof original.event === "string"
+              ? original.event
+              : original.event.$id
+          }
+          userId={original.userId}
+          booking={original}
+        />
+      </div>
+    ),
   },
 ];
