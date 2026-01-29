@@ -94,16 +94,20 @@ export const columns: ColumnDef<Booking>[] = [
     header: "User",
     cell: ({ row }) => {
       const booking = row.original as any;
-
+  
       return (
         <UserDetailsModal
-          email={booking?.user?.email}
-          phone={booking?.user?.phone}
+          user={booking.user}
+          event={
+            typeof booking.event === "string"
+              ? undefined
+              : booking.event
+          }
         />
       );
     },
   },
-
+  
   {
     id: "actions",
     header: "Actions",

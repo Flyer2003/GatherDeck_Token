@@ -43,12 +43,7 @@ export default async function NewBooking({ params: { userId }}: SearchParamProps
       </section>
 
       {/* RIGHT — Fixed */}
-      <ImageGrid
-        className="hidden md:flex side-img max-w-[390px] bg-bottom"
-        image1="/assets/images/p1.png"
-        image2="/assets/images/p2.png"
-        image3="/assets/images/p3.png"
-      />
+        
 
     </div>
   );

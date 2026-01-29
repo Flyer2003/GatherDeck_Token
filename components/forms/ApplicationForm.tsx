@@ -84,7 +84,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
             fieldType={FormFieldType.INPUT}
             control={form.control}
             name="name"
-            label="Full Name"
+            label="Full Name *"
             placeholder="Name"
             iconSrc="/assets/icons/user.svg"
             iconAlt="user"
@@ -95,7 +95,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="email"
-              label="Email"
+              label="Email *"
               placeholder="johndoe@gmail.com"
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
@@ -105,7 +105,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
               fieldType={FormFieldType.PHONE_INPUT}
               control={form.control}
               name="phone"
-              label="Phone Number"
+              label="Phone Number *"
               placeholder="9123234567"
           />
         </div>
@@ -115,14 +115,14 @@ const ApplicationForm = ({ user }: { user: User }) => {
                 fieldType={FormFieldType.DATE_PICKER}
                 control={form.control}
                 name="birthDate"
-                label="Date of Birth"
+                label="Date of Birth (optional)"
             />
 
             <CustomFormField 
                 fieldType={FormFieldType.SKELETON}
                 control={form.control}
                 name="gender"
-                label="Gender"
+                label="Gender (optional)"
                 renderSkeleton={(field )=> (
                   <FormControl>
                     <RadioGroup className="flex h-11 gap-6 xl:justify-between" onValueChange={field.onChange} defaultValue={field.value}>
@@ -145,7 +145,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
                 fieldType={FormFieldType.INPUT}
                 control={form.control}
                 name="address"
-                label="Address"
+                label="Address *"
                 placeholder="Trivandrum, Kerala"
             />
 
@@ -153,7 +153,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
                 fieldType={FormFieldType.INPUT}
                 control={form.control}
                 name="nationality"
-                label="Nationality"
+                label="Nationality *"
                 placeholder="India"
             />
         </div>
@@ -170,7 +170,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="eventType"
-              label="Event Type"
+              label="Event Type *"
               placeholder="Marriage, Birthday, etc."
           />
 
