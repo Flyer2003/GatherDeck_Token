@@ -53,7 +53,7 @@ const UserDetailsModal = ({ user, event }: UserDetailsModalProps) => {
       <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 bg-gradient-to-br from-dark-200/80 to-dark-300/70 p-6 shadow-2xl backdrop-blur-xl">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold text-white">
-            👤 User Details
+            👤 Application Details
           </DialogTitle>
         </DialogHeader>
 
@@ -105,13 +105,13 @@ const UserDetailsModal = ({ user, event }: UserDetailsModalProps) => {
           </div>
         </section>
 
-        {/* EVENT MEDIA */}
-        {event?.eventImagesUrl && (
-          <section className="mt-4 rounded-xl border border-white/10 bg-dark-100/40 p-4">
-            <h3 className="mb-3 text-sm font-semibold text-white">
-              Event Reference
-            </h3>
+        {/* EVENT MEDIA (ALWAYS SHOWN) */}
+        <section className="mt-4 rounded-xl border border-white/10 bg-dark-100/40 p-4">
+          <h3 className="mb-3 text-sm font-semibold text-white">
+            Event Reference
+          </h3>
 
+          {event?.eventImagesUrl ? (
             <div className="relative h-48 w-full overflow-hidden rounded-lg border border-white/10">
               <Image
                 src={event.eventImagesUrl}
@@ -120,8 +120,12 @@ const UserDetailsModal = ({ user, event }: UserDetailsModalProps) => {
                 className="object-cover"
               />
             </div>
-          </section>
-        )}
+          ) : (
+            <div className="flex h-32 items-center justify-center rounded-lg border border-dashed border-white/20 text-sm text-white/50">
+              No image provided
+            </div>
+          )}
+        </section>
 
         {/* CONSENT */}
         <section className="mt-4 rounded-xl border border-white/10 bg-dark-100/40 p-4">
