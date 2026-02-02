@@ -65,7 +65,7 @@ const RegistrationForm = () => {
             control={form.control}
             name="name"
             label="Full name"
-            placeholder="Jhn Doe"
+            placeholder="Name"
             iconSrc="/assets/icons/user.svg"
             iconAlt="user"
         />
@@ -75,7 +75,7 @@ const RegistrationForm = () => {
             control={form.control}
             name="email"
             label="Email"
-            placeholder="johndoe@gmail.com"
+            placeholder="Email"
             iconSrc="/assets/icons/email.svg"
             iconAlt="email"
         />
@@ -84,7 +84,7 @@ const RegistrationForm = () => {
             control={form.control}
             name="phone"
             label="Phone Number"
-            placeholder="9123234567"
+            placeholder=""
         />
 
        

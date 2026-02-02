@@ -96,7 +96,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
               control={form.control}
               name="email"
               label="Email *"
-              placeholder="johndoe@gmail.com"
+              placeholder="email"
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
           />
