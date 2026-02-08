@@ -14,7 +14,7 @@ import { Booking, Event } from "@/types/appwrite.types";
 import { revalidatePath } from "next/cache";
 
 /* ============================================================
-   RAW TRANSPORT TYPES (Appwrite shapes)
+   RAW TRANSPORT TYPES
 ============================================================ */
 
 type BookingDocument = Models.Document & {
@@ -35,7 +35,7 @@ type RawEvent = Models.Document & {
 };
 
 /* ============================================================
-   ADMIN VIEW MODEL (extends Booking safely)
+   ADMIN VIEW MODEL
 ============================================================ */
 
 export type AdminBooking = Booking & {
@@ -47,13 +47,9 @@ export type AdminBooking = Booking & {
 };
 
 /* ============================================================
-   NORMALIZERS (Transport → Domain)
+   NORMALIZERS
 ============================================================ */
 
-/**
- * Appwrite already stores all Event fields.
- * We only normalize fields with incompatible types (Date).
- */
 const normalizeEvent = (doc: RawEvent): Event => {
   return {
     ...(doc as unknown as Event),
@@ -62,22 +58,30 @@ const normalizeEvent = (doc: RawEvent): Event => {
 };
 
 /**
- * Convert raw booking document into AdminBooking
+ * Normalize booking safely
+ * - Skips booking if event is missing
+ * - Allows user to be null
  */
 const normalizeBooking = async (
   doc: BookingDocument
-): Promise<AdminBooking> => {
-  // Fetch + normalize event
-  const rawEvent = (await databases.getDocument(
-    DATABASE_ID!,
-    EVENT_COLLECTION_ID!,
-    doc.event
-  )) as RawEvent;
+): Promise<AdminBooking | null> => {
+  // 1️⃣ Fetch event safely
+  let event: Event;
+  try {
+    const rawEvent = (await databases.getDocument(
+      DATABASE_ID!,
+      EVENT_COLLECTION_ID!,
+      doc.event
+    )) as RawEvent;
 
-  const event = normalizeEvent(rawEvent);
+    event = normalizeEvent(rawEvent);
+  } catch {
+    // Event deleted → booking invalid
+    return null;
+  }
 
-  // Fetch Appwrite Auth user
-  let user = null;
+  // 2️⃣ Fetch user safely
+  let user: AdminBooking["user"] = null;
   try {
     const userDoc = await users.get(doc.userId);
     user = {
@@ -86,7 +90,7 @@ const normalizeBooking = async (
       name: userDoc.name,
     };
   } catch {
-    user = null;
+    user = null; // deleted user
   }
 
   return {
@@ -156,12 +160,18 @@ export const getRecentBookingList = async () => {
       else if (b.status === "cancelled") counts.cancelledCount++;
     });
 
-    const adminBookings: AdminBooking[] = await Promise.all(
+    // ✅ Safe normalization
+    const normalized = await Promise.all(
       documents.map(normalizeBooking)
     );
 
+    // ✅ Remove invalid bookings
+    const adminBookings: AdminBooking[] = normalized.filter(
+      (b): b is AdminBooking => b !== null
+    );
+
     return parseStringify({
-      totalCount: result.total,
+      totalCount: adminBookings.length,
       ...counts,
       documents: adminBookings,
     });
@@ -205,7 +215,12 @@ Reason: ${booking.cancellationReason || "Not specified"}`
 }
     `;
 
-    await sendSMSNotification(userId, smsMessage);
+    // ✅ SMS guarded
+    try {
+      await sendSMSNotification(userId, smsMessage);
+    } catch (err) {
+      console.log("⚠️ SMS skipped (user missing)", err);
+    }
 
     revalidatePath("/admin");
     return parseStringify(updatedBooking);
@@ -219,17 +234,12 @@ export const sendSMSNotification = async (
   userId: string,
   content: string
 ) => {
-  try {
-    const message = await messaging.createSMS(
-      ID.unique(),
-      content,
-      [],
-      [userId]
-    );
+  const message = await messaging.createSMS(
+    ID.unique(),
+    content,
+    [],
+    [userId]
+  );
 
-    return parseStringify(message);
-  } catch (error) {
-    console.log("❌ sendSMSNotification error:", error);
-    throw error;
-  }
+  return parseStringify(message);
 };
