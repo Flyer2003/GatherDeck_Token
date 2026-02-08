@@ -56,10 +56,7 @@ const Admin = async () => {
         {bookings.documents.length === 0 ? (
           <p className="text-dark-700">No bookings found.</p>
         ) : (
-          <DataTable
-            columns={columns}
-            data={bookings.documents}
-          />
+          <DataTable columns={columns} data={bookings.documents} />
         )}
       </main>
     </div>

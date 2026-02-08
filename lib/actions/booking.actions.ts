@@ -14,7 +14,7 @@ import { Booking, Event } from "@/types/appwrite.types";
 import { revalidatePath } from "next/cache";
 
 /* ============================================================
-   RAW TRANSPORT TYPES
+   RAW TYPES
 ============================================================ */
 
 type BookingDocument = Models.Document & {
@@ -35,7 +35,7 @@ type RawEvent = Models.Document & {
 };
 
 /* ============================================================
-   ADMIN VIEW MODEL
+   ADMIN MODEL
 ============================================================ */
 
 export type AdminBooking = Booking & {
@@ -43,7 +43,7 @@ export type AdminBooking = Booking & {
     email: string;
     phone: string;
     name: string;
-  } | null;
+  };
 };
 
 /* ============================================================
@@ -58,14 +58,14 @@ const normalizeEvent = (doc: RawEvent): Event => {
 };
 
 /**
- * Normalize booking safely
- * - Skips booking if event is missing
- * - Allows user to be null
+ * STRICT RULE:
+ * - If EVENT is deleted → booking ignored
+ * - If USER is deleted → booking ignored
  */
 const normalizeBooking = async (
   doc: BookingDocument
 ): Promise<AdminBooking | null> => {
-  // 1️⃣ Fetch event safely
+  // Event must exist
   let event: Event;
   try {
     const rawEvent = (await databases.getDocument(
@@ -76,30 +76,27 @@ const normalizeBooking = async (
 
     event = normalizeEvent(rawEvent);
   } catch {
-    // Event deleted → booking invalid
     return null;
   }
 
-  // 2️⃣ Fetch user safely
-  let user: AdminBooking["user"] = null;
+  // User must exist
   try {
     const userDoc = await users.get(doc.userId);
-    user = {
-      email: userDoc.email,
-      phone: userDoc.phone,
-      name: userDoc.name,
+
+    return {
+      ...doc,
+      schedule: new Date(doc.schedule),
+      event,
+      user: {
+        email: userDoc.email,
+        phone: userDoc.phone,
+        name: userDoc.name,
+      },
+      cancellationReason: doc.cancellationReason ?? null,
     };
   } catch {
-    user = null; // deleted user
+    return null;
   }
-
-  return {
-    ...doc,
-    schedule: new Date(doc.schedule),
-    event,
-    user,
-    cancellationReason: doc.cancellationReason ?? null,
-  };
 };
 
 /* ============================================================
@@ -132,12 +129,15 @@ export const getBooking = async (bookingId: string) => {
     );
 
     return parseStringify(booking);
-  } catch (error) {
-    console.log("❌ getBooking error:", error);
-    throw error;
+  } catch {
+    return null;
   }
 };
 
+/**
+ * ADMIN LIST (table + stats)
+ * Stats are calculated ONLY from visible bookings
+ */
 export const getRecentBookingList = async () => {
   try {
     const result = await databases.listDocuments(
@@ -148,27 +148,27 @@ export const getRecentBookingList = async () => {
 
     const documents = result.documents as unknown as BookingDocument[];
 
+    // Normalize + hard filter
+    const normalized = await Promise.all(
+      documents.map(normalizeBooking)
+    );
+
+    const adminBookings: AdminBooking[] = normalized.filter(
+      (b): b is AdminBooking => b !== null
+    );
+
+    // Calculate stats from visible bookings ONLY
     const counts = {
       scheduledCount: 0,
       pendingCount: 0,
       cancelledCount: 0,
     };
 
-    documents.forEach((b) => {
+    adminBookings.forEach((b) => {
       if (b.status === "scheduled") counts.scheduledCount++;
       else if (b.status === "pending") counts.pendingCount++;
       else if (b.status === "cancelled") counts.cancelledCount++;
     });
-
-    // ✅ Safe normalization
-    const normalized = await Promise.all(
-      documents.map(normalizeBooking)
-    );
-
-    // ✅ Remove invalid bookings
-    const adminBookings: AdminBooking[] = normalized.filter(
-      (b): b is AdminBooking => b !== null
-    );
 
     return parseStringify({
       totalCount: adminBookings.length,
@@ -177,10 +177,21 @@ export const getRecentBookingList = async () => {
     });
   } catch (error) {
     console.log("❌ getRecentBookingList error:", error);
-    throw error;
+    return {
+      totalCount: 0,
+      scheduledCount: 0,
+      pendingCount: 0,
+      cancelledCount: 0,
+      documents: [],
+    };
   }
 };
 
+/**
+ * STRICT UPDATE:
+ * - If booking does not exist → DO NOTHING
+ * - NEVER throw
+ */
 export const updateBooking = async ({
   bookingId,
   userId,
@@ -188,6 +199,17 @@ export const updateBooking = async ({
   type,
 }: UpdateBookingParams) => {
   try {
+    // Booking must exist
+    try {
+      await databases.getDocument(
+        DATABASE_ID!,
+        BOOKINGS_COLLECTION_ID!,
+        bookingId
+      );
+    } catch {
+      return null;
+    }
+
     const updatedBooking = await databases.updateDocument(
       DATABASE_ID!,
       BOOKINGS_COLLECTION_ID!,
@@ -195,51 +217,33 @@ export const updateBooking = async ({
       booking
     );
 
-    if (!updatedBooking) {
-      throw new Error("Booking not found");
-    }
-
-    const smsMessage = `
+    // SMS must never break admin
+    try {
+      const smsMessage = `
 Hi, it's regarding your booking with GatherDeck.
 
 ${
   type === "schedule"
     ? `Your booking has been scheduled for ${formatDateTime(
         booking.schedule!
-      ).dateTime}.
-Event Manager - ${booking.eventManager ?? "Not selected"}
-Catering - ${booking.catering ?? "Not selected"}
-Venue - ${booking.venue ?? "Not selected"}`
-    : `Your booking has been cancelled.
-Reason: ${booking.cancellationReason || "Not specified"}`
+      ).dateTime}.`
+    : `Your booking has been cancelled.`
 }
-    `;
+      `;
 
-    // ✅ SMS guarded
-    try {
-      await sendSMSNotification(userId, smsMessage);
-    } catch (err) {
-      console.log("⚠️ SMS skipped (user missing)", err);
+      await messaging.createSMS(
+        ID.unique(),
+        smsMessage,
+        [],
+        [userId]
+      );
+    } catch {
+      // ignore SMS failure
     }
 
     revalidatePath("/admin");
     return parseStringify(updatedBooking);
-  } catch (error) {
-    console.log("❌ updateBooking error:", error);
-    throw error;
+  } catch {
+    return null;
   }
-};
-
-export const sendSMSNotification = async (
-  userId: string,
-  content: string
-) => {
-  const message = await messaging.createSMS(
-    ID.unique(),
-    content,
-    [],
-    [userId]
-  );
-
-  return parseStringify(message);
 };
