@@ -1,18 +1,17 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
 
 import StatusBadge from "../StatusBadge";
 import BookingModel from "../BookingModel";
 import UserDetailsModal from "../UserDetailsModal";
 import { formatDateTime } from "@/lib/utils";
-import { Managers } from "@/constants";
 import { Booking } from "@/types/appwrite.types";
 
-const getManagerByValue = (value?: string) => {
-  if (!value || value === "none") return null;
-  return Managers.find((m) => m.value === value) ?? null;
+/* ✅ YES / NO helper */
+const getYesNoLabel = (value?: string) => {
+  if (!value || value === "none") return "No";
+  return "Yes";
 };
 
 export const columns: ColumnDef<Booking>[] = [
@@ -46,55 +45,40 @@ export const columns: ColumnDef<Booking>[] = [
     ),
   },
 
+  /* ✅ EVENT MANAGER → YES / NO */
   {
     accessorKey: "eventManager",
     header: "Event Manager",
-    cell: ({ row }) => {
-      const manager = getManagerByValue(row.original.eventManager);
-      return (
-        <div className="flex items-center gap-2">
-          {manager?.image ? (
-            <Image
-              src={manager.image}
-              alt={manager.name}
-              width={28}
-              height={28}
-              className="rounded-full"
-            />
-          ) : (
-            <div className="size-7 rounded-full bg-gray-600" />
-          )}
-          <span>{manager?.name ?? "Not selected"}</span>
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <span>{getYesNoLabel(row.original.eventManager)}</span>
+    ),
   },
 
+  /* ✅ CATERING → YES / NO */
   {
     accessorKey: "catering",
     header: "Catering",
-    cell: ({ row }) => {
-      const manager = getManagerByValue(row.original.catering);
-      return <span>{manager?.name ?? "Not selected"}</span>;
-    },
+    cell: ({ row }) => (
+      <span>{getYesNoLabel(row.original.catering)}</span>
+    ),
   },
 
+  /* ✅ VENUE → YES / NO */
   {
     accessorKey: "venue",
     header: "Venue",
-    cell: ({ row }) => {
-      const manager = getManagerByValue(row.original.venue);
-      return <span>{manager?.name ?? "Not selected"}</span>;
-    },
+    cell: ({ row }) => (
+      <span>{getYesNoLabel(row.original.venue)}</span>
+    ),
   },
 
-  /* 🟢 USER DETAILS BUTTON */
+  /* 🟢 USER DETAILS */
   {
     id: "userDetails",
     header: "User",
     cell: ({ row }) => {
       const booking = row.original as any;
-  
+
       return (
         <UserDetailsModal
           user={booking.user}
@@ -107,7 +91,8 @@ export const columns: ColumnDef<Booking>[] = [
       );
     },
   },
-  
+
+  /* 🟢 ACTIONS */
   {
     id: "actions",
     header: "Actions",

@@ -35,56 +35,18 @@ export const IdentificationTypes = [
 ];
 
 // constants/index.ts
+// constants/index.ts
+
 export const Managers = [
   {
     image: "",
-    name: "None",
+    name: "No",
     value: "none",
   },
   {
-    image: "/assets/images/catering1.png",
-    name: "Catering 1",
-    value: "catering_1",
-  },
-  {
-    image: "/assets/images/catering2.png",
-    name: "Catering 2",
-    value: "catering_2",
-  },
-  {
-    image: "/assets/images/catering3.png",
-    name: "Catering 3",
-    value: "catering_3",
-  },
-  {
-    image: "/assets/images/event.png",
-    name: "Event Manager 1",
-    value: "event_manager_1",
-  },
-  {
-    image: "/assets/images/event2.png",
-    name: "Event Manager 2",
-    value: "event_manager_2",
-  },
-  {
-    image: "/assets/images/event3.png",
-    name: "Event Manager 3",
-    value: "event_manager_3",
-  },
-  {
-    image: "/assets/images/auditorium1.png",
-    name: "Venues 1",
-    value: "venue_1",
-  },
-  {
-    image: "/assets/images/auditorium2.png",
-    name: "Venues 2",
-    value: "venue_2",
-  },
-  {
-    image: "/assets/images/auditorium3.png",
-    name: "Venues 3",
-    value: "venue_3",
+    image: "/assets/icons/check.svg", // optional
+    name: "Yes",
+    value: "yes",
   },
 ];
 
