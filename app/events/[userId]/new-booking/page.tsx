@@ -1,50 +1,52 @@
-import Image from "next/image";
-import RegistrationForm from "@/components/forms/RegistrationForm";
-import ImageGrid from "@/components/imagegrid";
-import Link from "next/link";
-import BookingForm from "@/components/forms/BookingForm";
-import { getEvent } from "@/lib/actions/event.actions";
-import * as Sentry from "@sentry/nextjs";
+import Image from "next/image"
+import React from "react"
+import BookingForm from "@/components/forms/BookingForm"
+import { getEvent } from "@/lib/actions/event.actions"
+import * as Sentry from "@sentry/nextjs"
 
-export default async function NewBooking({ params: { userId }}: SearchParamProps) {
-    const event = await getEvent(userId);
+const NewBooking = async ({
+  params: { userId },
+}: SearchParamProps) => {
+  const event = await getEvent(userId)
 
-    Sentry.metrics.count('user_view_new-booking', event.name);
-  
+  if (!event) {
+    return <p>No event found</p>
+  }
+
+  Sentry.metrics.count("user_view_booking_form", 1)
 
   return (
     <div className="flex h-screen max-h-screen">
-      
-      {/* LEFT — Scrollable */}
-      <section className="remove-scrollbar container my-auto">
-        <div className="sub-container max-w-[860px] flex-1 justify-between">
-          
+      <section className="remove-scrollbar container">
+        <div className="sub-container max-w-[860px] py-10">
           <Image
             src="/assets/icons/GatherDeck.svg"
             height={1000}
             width={1000}
             alt="logo"
-            className="-mt-4 mb-8 h-10 w-fit"
+            className="mb-12 h-10 w-fit"
           />
 
-          <BookingForm 
-            type="create"
+          <BookingForm
             userId={userId}
             eventId={event.$id}
           />
 
-          
-        <p className="copyright mt-10 py-12">
+          <p className="copyright py-12">
             © 2025 GatherDeck
-        </p>
-            
-
+          </p>
         </div>
       </section>
 
-      {/* RIGHT — Fixed */}
-        
-
+      <Image
+        src="/assets/images/register-img.png"
+        height={1000}
+        width={1000}
+        alt="booking image"
+        className="side-img max-w-[390px]"
+      />
     </div>
-  );
+  )
 }
+
+export default NewBooking

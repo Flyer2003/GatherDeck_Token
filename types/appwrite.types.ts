@@ -1,42 +1,45 @@
-import { Models } from "node-appwrite";
+import { Models } from "appwrite"
+
+/* =========================
+   EVENT DOCUMENT
+========================= */
 
 export interface Event extends Models.Document {
-  userId: string;
+  userId: string
 
-  /* Personal Information */
-  name: string;
-  email: string;
-  phone: string;
-  birthDate?: Date;
-  gender?: Gender;
-  address?: string;
-  nationality?: string;
+  /* Required */
+  name: string
+  email: string
+  phone: string
+
+  /* Optional Personal */
+  address?: string
+  nationality?: string
 
   /* Event Details */
-  eventType?: string;
-  requirements?: string;
-  preferences?: string;
-  avoidances?: string;
+  eventType?: string
+  requirements?: string
+  preferences?: string
+  avoidances?: string
 
   /* Media */
-  eventSources?: string;
-  eventImagesId?: string | null;
-  eventImagesUrl?: string | null;
+  eventSources?: string
+  eventImagesId?: string | null
+  eventImagesUrl?: string | null
 
   /* Consent */
-  privacyConsent: boolean;
+  privacyConsent?: boolean
 }
 
+/* =========================
+   BOOKING DOCUMENT
+========================= */
 
 export interface Booking extends Models.Document {
-  event: string | Event;
-  schedule: Date;
-  status: Status;
-  eventManager: string;
-  catering: string;
-  venue: string;
-  description: string;
-  note: string;
-  userId: string;
-  cancellationReason: string | null;
+  event: string | Event
+  schedule: Date
+  status: Status
+  description: string
+  note?: string
+  userId: string
 }
