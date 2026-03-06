@@ -42,8 +42,10 @@ const BookingForm = ({
 
     let formData: FormData | undefined
 
-    if (values.eventImages?.length > 0) {
-      const file = values.eventImages[0]
+    const files = values.eventImages ?? []
+
+    if (files.length > 0) {
+      const file = files[0]
       const blobFile = new Blob([file], { type: file.type })
 
       formData = new FormData()
@@ -121,7 +123,10 @@ const BookingForm = ({
             name="eventImages"
             label="Upload Images"
             renderSkeleton={(field) => (
-              <FileUploader files={field.value} onChange={field.onChange} />
+              <FileUploader
+                files={field.value ?? []}
+                onChange={field.onChange}
+              />
             )}
           />
         </section>
