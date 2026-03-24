@@ -74,23 +74,54 @@ export const metadata: Metadata = {
   },
 };
 
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-dark-200 font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: {
+          colorPrimary: "#24AE7C",
+          colorBackground: "#131619",
+          colorInputBackground: "#1A1D21",
+          colorInputText: "#E8E9E9",
+          colorText: "#E8E9E9",
+          colorTextSecondary: "#76828D",
+          colorDanger: "#F24E43",
+          borderRadius: "12px",
+        },
+        elements: {
+          card: "shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-[#363A3D] rounded-2xl bg-[#131619]",
+          formButtonPrimary: "bg-[#24AE7C] hover:bg-opacity-90 transition-all font-semibold rounded-xl py-3 border border-transparent hover:border-[#24AE7C] hover:shadow-md text-white",
+          formFieldInput: "bg-[#1A1D21] border-[#363A3D] focus:ring-2 focus:ring-[#24AE7C] focus:border-transparent rounded-lg transition-all",
+          footerActionLink: "text-[#24AE7C] hover:text-[#0D2A1F] font-semibold",
+          socialButtonsBlockButton: "border border-[#363A3D] hover:bg-[#1A1D21] transition-all rounded-xl",
+          socialButtonsBlockButtonText: "font-semibold text-[#ABB8C4]",
+          headerTitle: "text-[#E8E9E9] font-bold text-2xl",
+          headerSubtitle: "text-[#76828D]",
+          dividerLine: "bg-[#363A3D]",
+          dividerText: "text-[#76828D]",
+        }
+      }}
+    >
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={cn(
+            "min-h-screen bg-dark-200 font-sans antialiased",
+            fontSans.variable
+          )}
+        >
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

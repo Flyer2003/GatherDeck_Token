@@ -10,7 +10,7 @@ import { useState } from "react"
 import { EventFormValidation } from "@/lib/validation"
 import { useRouter } from "next/navigation"
 import { registerEvent } from "@/lib/actions/event.actions"
-import { FormFieldType } from "./RegistrationForm"
+import { FormFieldType } from "../CustomFormField"
 import { EventFormDefaultValues } from "@/constants"
 
 const ApplicationForm = ({ user }: { user: User }) => {
@@ -31,7 +31,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
         userId: user.$id,
       })
 
-      if (event) router.push(`/events/${user.$id}/new-booking`)
+      if (event) router.push("/bookings/new")
     } catch (error) {
       console.error(error)
     } finally {

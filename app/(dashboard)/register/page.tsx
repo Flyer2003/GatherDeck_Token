@@ -1,24 +1,43 @@
+"use client"
+
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
-import React from "react"
 import ApplicationForm from "@/components/forms/ApplicationForm"
-import { getUser } from "@/lib/actions/event.actions"
+import { useUser } from "@clerk/nextjs"
 import * as Sentry from "@sentry/nextjs"
 
-const Register = async ({
-  params: { userId },
-}: SearchParamProps) => {
-  const user = await getUser(userId)
+export default function Register() {
 
-  if (!user) {
-    return <p>User not found</p>
+  const router = useRouter()
+  const { user, isLoaded } = useUser()
+
+  useEffect(() => {
+
+    if (isLoaded && !user) {
+      router.push("/sign-in")
+    } else if (isLoaded && user) {
+      Sentry.metrics.count("user_view_registration", 1)
+    }
+
+  }, [user, isLoaded, router])
+
+  if (!isLoaded || !user) return null
+
+  const mappedUser = {
+    $id: user.id,
+    name: user.fullName || "",
+    email: user.primaryEmailAddress?.emailAddress || "",
+    phone: user.primaryPhoneNumber?.phoneNumber || "",
   }
-
-  Sentry.metrics.count("user_view_registration", 1)
 
   return (
     <div className="flex h-screen max-h-screen">
+
       <section className="remove-scrollbar container">
+
         <div className="sub-container max-w-[860px] py-10">
+
           <Image
             src="/assets/icons/GatherDeck.svg"
             height={1000}
@@ -27,12 +46,14 @@ const Register = async ({
             className="mb-12 h-10 w-fit"
           />
 
-          <ApplicationForm user={user} />
+          <ApplicationForm user={mappedUser} />
 
           <p className="copyright py-12">
             © 2025 GatherDeck
           </p>
+
         </div>
+
       </section>
 
       <Image
@@ -42,8 +63,7 @@ const Register = async ({
         alt="register image"
         className="side-img max-w-[390px]"
       />
+
     </div>
   )
 }
-
-export default Register

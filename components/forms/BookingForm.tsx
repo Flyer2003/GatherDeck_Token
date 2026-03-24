@@ -9,7 +9,7 @@ import SubmitButton from "../SubmitButton"
 import { useState } from "react"
 import { BookingWithEventSchema } from "@/lib/validation"
 import { useRouter } from "next/navigation"
-import { FormFieldType } from "./RegistrationForm"
+import { FormFieldType } from "../CustomFormField"
 import FileUploader from "../FileUploader"
 import { createBooking } from "@/lib/actions/booking.actions"
 
@@ -73,7 +73,7 @@ const BookingForm = ({
 
       if (booking) {
         router.push(
-          `/events/${userId}/new-booking/success?bookingId=${booking.$id}`
+          `/bookings/success?bookingId=${booking.$id}`
         )
       }
     } catch (error) {

@@ -1,17 +1,22 @@
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import EventCarousel from "@/components/EventCarousel";
-import Testimonials from "@/components/Testimonials";
-import Reveal from "@/components/Reveal";
-import VendorGrid from "@/components/VendorGrid";
+import Link from "next/link"
+import Navbar from "@/components/Navbar"
+import EventCarousel from "@/components/EventCarousel"
+import Testimonials from "@/components/Testimonials"
+import Reveal from "@/components/Reveal"
+import VendorGrid from "@/components/VendorGrid"
+import { getCurrentUser } from "@/lib/actions/auth.actions"
+import { redirect } from "next/navigation"
 
 export const metadata = {
   title: "GatherDeck – Book Event Vendors, Venues & Catering",
   description:
     "GatherDeck is an event vendor marketplace to book event managers, catering services, venues, and event requirements.",
-};
+}
 
-export default function LandingPage() {
+export default async function LandingPage() {
+
+  /* Optional: redirect logged in users to dashboard */
+
   return (
     <main className="bg-dark-200 text-white overflow-x-hidden relative">
 
@@ -54,7 +59,7 @@ export default function LandingPage() {
             </p>
 
             <Link
-              href="/login"
+              href="/register"
               className="inline-block mt-10 rounded-xl bg-green-500 px-10 py-4 text-lg font-semibold text-black"
             >
               Start Booking
@@ -127,7 +132,7 @@ export default function LandingPage() {
           </p>
 
           <Link
-            href="/login"
+            href="/register"
             className="inline-block mt-10 rounded-xl bg-green-500 px-12 py-4 text-lg font-semibold text-black"
           >
             Get Started
@@ -153,5 +158,5 @@ export default function LandingPage() {
       </footer>
 
     </main>
-  );
+  )
 }
