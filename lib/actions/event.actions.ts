@@ -3,6 +3,7 @@
 import { ID, Query } from "node-appwrite"
 import { databases } from "@/lib/appwrite.config"
 import { parseStringify } from "../utils"
+import DOMPurify from "isomorphic-dompurify"
 
 const DATABASE_ID = process.env.DATABASE_ID!
 const EVENT_COLLECTION_ID = process.env.EVENT_COLLECTION_ID!
@@ -29,13 +30,19 @@ export const getEvent = async (userId: string) => {
 export const registerEvent = async (event: RegisterUserParams) => {
 
   try {
+    const sanitizedEvent = Object.fromEntries(
+      Object.entries(event).map(([key, value]) => [
+        key,
+        typeof value === "string" ? DOMPurify.sanitize(value) : value,
+      ])
+    );
 
     return parseStringify(
       await databases.createDocument(
         DATABASE_ID,
         EVENT_COLLECTION_ID,
         ID.unique(),
-        event
+        sanitizedEvent
       )
     )
 

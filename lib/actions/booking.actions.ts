@@ -4,6 +4,7 @@ import { ID } from "node-appwrite"
 import { databases, storage } from "@/lib/appwrite.config"
 import { parseStringify } from "../utils"
 import { InputFile } from "node-appwrite/file"
+import DOMPurify from "isomorphic-dompurify"
 
 const DATABASE_ID = process.env.DATABASE_ID!
 const BOOKINGS_COLLECTION_ID = process.env.BOOKINGS_COLLECTION_ID!
@@ -18,6 +19,14 @@ export const createBooking = async ({
 
 
   try {
+
+    // Sanitize string inputs in booking
+    const sanitizedBooking = Object.fromEntries(
+      Object.entries(booking).map(([key, value]) => [
+        key,
+        typeof value === "string" ? DOMPurify.sanitize(value) : value,
+      ])
+    );
 
     let fileData = {}
 
@@ -46,7 +55,7 @@ export const createBooking = async ({
       BOOKINGS_COLLECTION_ID,
       ID.unique(),
       {
-        ...booking,
+        ...sanitizedBooking,
         ...fileData,
       }
     )
