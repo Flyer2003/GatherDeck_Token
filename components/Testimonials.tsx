@@ -132,10 +132,10 @@ function TestimonialCard({
     <div
       className={`
       transition-all duration-500 ease-out
-      bg-dark-300 border border-dark-400 rounded-2xl
+      bg-[#1A1D21] border border-[#363A3D] rounded-3xl
       ${size === "large"
-        ? "scale-110 w-[360px] p-10 shadow-xl"
-        : "scale-90 w-[300px] p-8 opacity-80"}
+        ? "scale-110 w-[380px] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-green-500/20 z-20"
+        : "scale-90 w-[300px] p-8 opacity-60 z-10"}
       `}
     >
       <Quote className="text-green-400 mb-4" size={28} />

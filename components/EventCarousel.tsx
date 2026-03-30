@@ -101,18 +101,13 @@ export default function EventCarousel() {
                 width={500}
                 height={350}
                 loading="lazy"
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-[22rem] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               />
 
               {/* GLASS OVERLAY */}
-              <div className="absolute bottom-0 left-0 w-full p-4 backdrop-blur-md bg-black/40">
-
-                <h3 className="text-sm font-semibold">{event.title}</h3>
-
-                <p className="text-xs text-dark-600">
-                  {event.vendor}
-                </p>
-
+              <div className="absolute bottom-0 left-0 w-full p-5 backdrop-blur-md bg-black/60 border-t border-white/10 group-hover:bg-black/40 transition-colors duration-500">
+                <h3 className="text-base font-bold text-white tracking-wide">{event.title}</h3>
+                <p className="text-sm text-green-400 mt-1 font-medium">{event.vendor}</p>
               </div>
             </div>
           ))}

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 import { getCurrentUser } from "@/lib/actions/auth.actions"
+import Navbar from "@/components/Navbar"
 
 export default async function DashboardLayout({
   children,
@@ -12,5 +13,12 @@ export default async function DashboardLayout({
     redirect("/sign-in")
   }
 
-  return <>{children}</>
+  return (
+    <>
+      <Navbar />
+      <div className="pt-[64px] min-h-screen bg-dark-200">
+        {children}
+      </div>
+    </>
+  )
 }

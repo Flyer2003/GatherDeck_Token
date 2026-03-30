@@ -88,8 +88,8 @@ const BookingForm = ({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
 
         {/* EVENT */}
-        <section className="space-y-6">
-          <h2 className="sub-header">Event Details</h2>
+        <section className="space-y-6 bg-[#1A1D21]/50 p-6 rounded-2xl border border-dark-400">
+          <h2 className="text-lg font-bold text-green-400 mb-2 border-b border-dark-400 pb-2">Event Details</h2>
 
           <CustomFormField
             fieldType={FormFieldType.INPUT}
@@ -107,8 +107,8 @@ const BookingForm = ({
         </section>
 
         {/* MEDIA */}
-        <section className="space-y-6">
-          <h2 className="sub-header">Media</h2>
+        <section className="space-y-6 bg-[#1A1D21]/50 p-6 rounded-2xl border border-dark-400">
+          <h2 className="text-lg font-bold text-green-400 mb-2 border-b border-dark-400 pb-2">Media Reference</h2>
 
           <CustomFormField
             fieldType={FormFieldType.INPUT}
@@ -132,8 +132,8 @@ const BookingForm = ({
         </section>
 
         {/* DATE */}
-        <section className="space-y-6">
-          <h2 className="sub-header">Date & Details</h2>
+        <section className="space-y-6 bg-[#1A1D21]/50 p-6 rounded-2xl border border-dark-400">
+          <h2 className="text-lg font-bold text-green-400 mb-2 border-b border-dark-400 pb-2">Date & Description</h2>
 
           <CustomFormField
             fieldType={FormFieldType.DATE_PICKER}
@@ -158,8 +158,8 @@ const BookingForm = ({
         </section>
 
         {/* CONSENT */}
-        <section className="space-y-6">
-          <h2 className="sub-header">Consent & Privacy</h2>
+        <section className="space-y-6 bg-[#1A1D21]/50 p-6 rounded-2xl border border-dark-400">
+          <h2 className="text-lg font-bold text-green-400 mb-2 border-b border-dark-400 pb-2">Consent & Privacy</h2>
 
           <CustomFormField
             fieldType={FormFieldType.CHECKBOX}
@@ -169,8 +169,11 @@ const BookingForm = ({
           />
         </section>
 
-        <SubmitButton isLoading={isLoading}>
-          Create Booking
+        <SubmitButton 
+          isLoading={isLoading}
+          className="w-full rounded-xl bg-green-500 px-5 py-3.5 text-base font-bold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] mt-4"
+        >
+          Submit Booking Request
         </SubmitButton>
       </form>
     </Form>

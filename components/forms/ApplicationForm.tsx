@@ -41,8 +41,8 @@ const ApplicationForm = ({ user }: { user: User }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <h1 className="header">Personal Details</h1>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <h2 className="text-xl font-bold text-green-400 mb-4 tracking-wide border-b border-dark-400 pb-2">Personal Details</h2>
 
         <CustomFormField
           fieldType={FormFieldType.INPUT}
@@ -82,7 +82,10 @@ const ApplicationForm = ({ user }: { user: User }) => {
           label="Nationality (optional)"
         />
 
-        <SubmitButton isLoading={isLoading}>
+        <SubmitButton 
+          isLoading={isLoading}
+          className="w-full rounded-xl bg-green-500 px-5 py-3.5 text-base font-bold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] mt-8"
+        >
           Continue to Booking
         </SubmitButton>
       </form>

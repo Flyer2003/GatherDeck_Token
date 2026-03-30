@@ -1,11 +1,11 @@
 import Link from "next/link"
 import Navbar from "@/components/Navbar"
-import EventCarousel from "@/components/EventCarousel"
-import Testimonials from "@/components/Testimonials"
 import Reveal from "@/components/Reveal"
-import VendorGrid from "@/components/VendorGrid"
-import { getCurrentUser } from "@/lib/actions/auth.actions"
-import { redirect } from "next/navigation"
+import dynamic from "next/dynamic"
+
+// Lazy load below-the-fold components
+const EventCarousel = dynamic(() => import("@/components/EventCarousel"))
+const Testimonials = dynamic(() => import("@/components/Testimonials"))
 
 export const metadata = {
   title: "GatherDeck – Book Event Vendors, Venues & Catering",
@@ -34,7 +34,8 @@ export default async function LandingPage() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover scale-105"
         >
           <source src="/assets/hero/GD_Logo.mp4" type="video/mp4" />
         </video>
@@ -60,7 +61,7 @@ export default async function LandingPage() {
 
             <Link
               href="/register"
-              className="inline-block mt-10 rounded-xl bg-green-500 px-10 py-4 text-lg font-semibold text-black"
+              className="inline-block mt-10 rounded-xl bg-green-500 px-10 py-4 text-lg font-semibold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]"
             >
               Start Booking
             </Link>
@@ -71,31 +72,31 @@ export default async function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section className="container mx-auto px-6 py-24 grid md:grid-cols-3 gap-12 text-center">
+      <section className="container mx-auto px-6 py-24 grid md:grid-cols-3 gap-8 text-center relative z-10">
 
         <Reveal>
-          <div className="p-8 rounded-xl bg-dark-300">
-            <h3 className="text-xl font-semibold">Verified Vendors</h3>
-            <p className="mt-4 text-dark-600">
+          <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
+            <h3 className="text-xl font-bold tracking-tight text-white">Verified Vendors</h3>
+            <p className="mt-4 text-dark-600 leading-relaxed">
               Trusted event managers and venues verified for quality.
             </p>
           </div>
         </Reveal>
 
         <Reveal>
-          <div className="p-8 rounded-xl bg-dark-300">
-            <h3 className="text-xl font-semibold">Simple Booking</h3>
-            <p className="mt-4 text-dark-600">
-              Book your entire event through one platform.
+          <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
+            <h3 className="text-xl font-bold tracking-tight text-white">Simple Booking</h3>
+            <p className="mt-4 text-dark-600 leading-relaxed">
+              Book your entire event seamlessly through one intuitive platform.
             </p>
           </div>
         </Reveal>
 
         <Reveal>
-          <div className="p-8 rounded-xl bg-dark-300">
-            <h3 className="text-xl font-semibold">All Event Types</h3>
-            <p className="mt-4 text-dark-600">
-              Weddings, corporate events and celebrations.
+          <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
+            <h3 className="text-xl font-bold tracking-tight text-white">All Event Types</h3>
+            <p className="mt-4 text-dark-600 leading-relaxed">
+              Weddings, corporate events and unforgettable celebrations.
             </p>
           </div>
         </Reveal>
@@ -133,7 +134,7 @@ export default async function LandingPage() {
 
           <Link
             href="/register"
-            className="inline-block mt-10 rounded-xl bg-green-500 px-12 py-4 text-lg font-semibold text-black"
+            className="inline-block mt-10 rounded-xl bg-green-500 px-12 py-4 text-lg font-semibold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_40px_rgba(34,197,94,0.5)]"
           >
             Get Started
           </Link>
