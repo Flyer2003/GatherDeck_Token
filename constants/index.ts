@@ -7,8 +7,6 @@ export const EventFormDefaultValues = {
   name: "",
   email: "",
   phone: "",
-  address: "",
-  nationality: "",
 }
 
 /* =========================

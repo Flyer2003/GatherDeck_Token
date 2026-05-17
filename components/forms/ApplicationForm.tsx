@@ -68,20 +68,6 @@ const ApplicationForm = ({ user }: { user: User }) => {
           placeholder="9876543210"
         />
 
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name="address"
-          label="Address (optional)"
-        />
-
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name="nationality"
-          label="Nationality (optional)"
-        />
-
         <SubmitButton 
           isLoading={isLoading}
           className="w-full rounded-xl bg-green-500 px-5 py-3.5 text-base font-bold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] mt-8"

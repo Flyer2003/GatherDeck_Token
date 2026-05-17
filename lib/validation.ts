@@ -46,16 +46,6 @@ export const EventFormValidation = z.object({
   name: nameSchema,
   email: emailSchema,
   phone: phoneSchema,
-
-  address: z
-    .string()
-    .max(200, "Address too long")
-    .optional(),
-
-  nationality: z
-    .string()
-    .max(100, "Nationality too long")
-    .optional(),
 });
 
 /* =========================================================
