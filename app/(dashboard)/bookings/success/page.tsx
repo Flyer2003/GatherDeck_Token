@@ -24,7 +24,7 @@ const Success = async ({
   Sentry.metrics.count("user_view_booking_success", 1)
 
   return (
-    <div className="flex h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
+    <div className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-6 py-10 relative overflow-y-auto">
       
       {/* Background flair */}
       <div className="absolute top-1/4 -left-20 w-80 h-80 bg-green-500/10 blur-[120px] rounded-full pointer-events-none"></div>

@@ -1,6 +1,6 @@
 "use server"
 
-import { ID } from "node-appwrite"
+import { ID, Query } from "node-appwrite"
 import { databases, storage } from "@/lib/appwrite.config"
 import { parseStringify } from "../utils"
 import { InputFile } from "node-appwrite/file"
@@ -127,3 +127,26 @@ export const getBooking = async (bookingId: string) => {
     return null
   }
 }
+
+export const getUserBookings = async (userId: string) => {
+  try {
+    const { userId: authedId } = auth();
+    if (!authedId || authedId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const bookings = await databases.listDocuments(
+      DATABASE_ID,
+      BOOKINGS_COLLECTION_ID,
+      [
+        Query.equal("userId", [userId]),
+        Query.orderDesc("$createdAt")
+      ]
+    )
+
+    return parseStringify(bookings.documents)
+  } catch (error) {
+    console.log("getUserBookings error:", error)
+    return []
+  }
+}

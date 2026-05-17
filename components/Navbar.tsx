@@ -56,7 +56,7 @@ export default function Navbar() {
 
           <SignedIn>
             <Link
-              href="/register"
+              href="/dashboard"
               className="text-sm font-medium hover:text-green-400"
             >
               Dashboard
