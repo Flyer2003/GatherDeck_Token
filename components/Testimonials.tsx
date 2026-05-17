@@ -5,32 +5,32 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Anita Sharma",
+    name: "Archana",
     text: "GatherDeck helped us organize our wedding effortlessly.",
     rating: 5,
   },
   {
-    name: "Rahul Nair",
+    name: "Gokul",
     text: "Amazing vendors and smooth booking process.",
     rating: 5,
   },
   {
-    name: "Priya Kapoor",
+    name: "Arun Kumar",
     text: "Perfect platform for corporate event planning.",
     rating: 5,
   },
   {
-    name: "Vikram Patel",
+    name: "Adithyan",
     text: "Found a great venue and catering service within minutes.",
     rating: 4,
   },
   {
-    name: "Sneha Iyer",
+    name: "Sneha",
     text: "Highly recommended for anyone planning an event.",
     rating: 5,
   },
   {
-    name: "Aditya Verma",
+    name: "Athul",
     text: "The booking experience was simple and fast.",
     rating: 5,
   },
@@ -134,8 +134,8 @@ function TestimonialCard({
       transition-all duration-500 ease-out
       bg-[#1A1D21] border border-[#363A3D] rounded-3xl
       ${size === "large"
-        ? "scale-110 w-[380px] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-green-500/20 z-20"
-        : "scale-90 w-[300px] p-8 opacity-60 z-10"}
+          ? "scale-110 w-[380px] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-green-500/20 z-20"
+          : "scale-90 w-[300px] p-8 opacity-60 z-10"}
       `}
     >
       <Quote className="text-green-400 mb-4" size={28} />

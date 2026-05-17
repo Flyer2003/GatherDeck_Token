@@ -5,12 +5,12 @@ import { useState, useRef } from "react";
 
 const events = [
   {
-    image: "/assets/events/event1.jpg",
+    image: "/assets/events/event2.jpg",
     vendor: "Elite Weddings",
     title: "Luxury Beach Wedding",
   },
   {
-    image: "/assets/events/event2.jpg",
+    image: "/assets/events/event1.jpg",
     vendor: "Grand Caterers",
     title: "Corporate Gala Dinner",
   },
@@ -23,11 +23,6 @@ const events = [
     image: "/assets/events/event4.jpg",
     vendor: "Dream Events",
     title: "Luxury Reception",
-  },
-  {
-    image: "/assets/events/event5.jpg",
-    vendor: "Platinum Planners",
-    title: "Destination Wedding",
   },
 ];
 
