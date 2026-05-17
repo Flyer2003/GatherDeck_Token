@@ -4,6 +4,7 @@ import { ID, Query } from "node-appwrite"
 import { databases } from "@/lib/appwrite.config"
 import { parseStringify } from "../utils"
 import DOMPurify from "isomorphic-dompurify"
+import { auth } from "@clerk/nextjs/server"
 
 const DATABASE_ID = process.env.DATABASE_ID!
 const EVENT_COLLECTION_ID = process.env.EVENT_COLLECTION_ID!
@@ -12,6 +13,10 @@ const EVENT_COLLECTION_ID = process.env.EVENT_COLLECTION_ID!
 export const getEvent = async (userId: string) => {
 
   try {
+    const { userId: authedId } = auth();
+    if (!authedId || authedId !== userId) {
+      throw new Error("Unauthorized");
+    }
 
     const events = await databases.listDocuments(
       DATABASE_ID,
@@ -30,6 +35,7 @@ export const getEvent = async (userId: string) => {
 export const registerEvent = async (event: RegisterUserParams) => {
 
   try {
+    auth().protect();
     const sanitizedEvent = Object.fromEntries(
       Object.entries(event).map(([key, value]) => [
         key,

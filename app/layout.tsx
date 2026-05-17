@@ -12,7 +12,7 @@ const fontSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gatherdeck.vercel.app"),
+  metadataBase: new URL("https://gatherdeck.in"),
   title: {
     default: "GatherDeck – Book Event Vendors, Venues & Catering",
     template: "%s | GatherDeck",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "GatherDeck – Event Vendor Marketplace",
     description:
       "Book verified event managers, caterers, venues, and vendors for weddings, corporate events, and celebrations.",
-    url: "https://gatherdeck.vercel.app",
+    url: "https://gatherdeck.in",
     images: [
       {
         url: "/og-event-marketplace.png",

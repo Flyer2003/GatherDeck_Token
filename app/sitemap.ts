@@ -1,7 +1,7 @@
 export default function sitemap() {
     return [
       {
-        url: "https://gatherdeck.vercel.app",
+        url: "https://gatherdeck.in",
         lastModified: new Date(),
       },
     ];

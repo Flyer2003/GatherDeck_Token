@@ -6,6 +6,7 @@ import { parseStringify } from "../utils"
 import { InputFile } from "node-appwrite/file"
 import DOMPurify from "isomorphic-dompurify"
 import { getEvent } from "./event.actions"
+import { auth } from "@clerk/nextjs/server"
 const DATABASE_ID = process.env.DATABASE_ID!
 const BOOKINGS_COLLECTION_ID = process.env.BOOKINGS_COLLECTION_ID!
 const BUCKET_ID = process.env.NEXT_PUBLIC_BUCKET_ID!
@@ -19,6 +20,10 @@ export const createBooking = async ({
 
 
   try {
+    const { userId: authedId } = auth();
+    if (!authedId || authedId !== booking.userId) {
+      throw new Error("Unauthorized");
+    }
 
     // Sanitize string inputs in booking
     const sanitizedBooking = Object.fromEntries(
@@ -107,6 +112,7 @@ export const getBooking = async (bookingId: string) => {
 
 
   try {
+    auth().protect();
 
     return parseStringify(
       await databases.getDocument(

@@ -4,10 +4,10 @@ export default function robots() {
         {
           userAgent: "*",
           allow: "/",
-          disallow: ["/admin", "/events"],
+          disallow: ["/admin"],
         },
       ],
-      sitemap: "https://gatherdeck.vercel.app/sitemap.xml",
+      sitemap: "https://gatherdeck.in/sitemap.xml",
     };
   }
   
