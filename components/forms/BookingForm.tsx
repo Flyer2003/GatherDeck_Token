@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import { FormFieldType } from "../CustomFormField"
 import FileUploader from "../FileUploader"
 import { createBooking } from "@/lib/actions/booking.actions"
+import { PrivacyPolicyModal } from "../PrivacyPolicyModal"
 
 const BookingForm = ({
   userId,
@@ -165,7 +166,17 @@ const BookingForm = ({
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
             name="privacyConsent"
-            label="I agree to the Privacy Policy *"
+            label={
+              <div className="flex items-center gap-1">
+                I agree to the{" "}
+                <PrivacyPolicyModal>
+                  <button type="button" className="text-green-500 hover:underline">
+                    Privacy Policy
+                  </button>
+                </PrivacyPolicyModal>{" "}
+                *
+              </div>
+            }
           />
         </section>
 

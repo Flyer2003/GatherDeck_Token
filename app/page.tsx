@@ -2,6 +2,7 @@ import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Reveal from "@/components/Reveal"
 import dynamic from "next/dynamic"
+import { PrivacyPolicyModal } from "@/components/PrivacyPolicyModal"
 
 // Lazy load below-the-fold components
 const EventCarousel = dynamic(() => import("@/components/EventCarousel"))
@@ -153,7 +154,9 @@ export default async function LandingPage() {
         <div className="flex justify-center gap-6 mt-4 text-sm text-dark-600">
           <a href="#">About</a>
           <a href="#">Contact</a>
-          <a href="#">Privacy</a>
+          <PrivacyPolicyModal>
+            <button className="hover:text-white transition-colors">Privacy</button>
+          </PrivacyPolicyModal>
         </div>
 
       </footer>
