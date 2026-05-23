@@ -215,7 +215,7 @@ export function PrivacyPolicyModal({ children }: { children: React.ReactNode }) 
           <p>For questions or privacy-related requests, contact:</p>
           <p>
             <strong>GatherDeck Support</strong><br />
-            Email: <a href="mailto:support@gatherdeck.com" className="text-green-500 hover:underline">support@gatherdeck.com</a>
+            Email: <a href="mailto:support@gatherdeck.in" className="text-green-500 hover:underline">support@gatherdeck.in</a>
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">16. Consent</h2>

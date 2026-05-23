@@ -19,9 +19,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all ${scrolled
-        ? "bg-dark-200/95 backdrop-blur-md border-b border-dark-400"
-        : "bg-transparent"
+      className={`fixed top-0 left-0 w-full z-50 transition-all border-b ${scrolled
+        ? "bg-dark-200/95 backdrop-blur-md border-dark-400"
+        : "bg-transparent border-transparent"
         }`}
     >
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">

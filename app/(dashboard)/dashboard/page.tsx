@@ -14,19 +14,19 @@ export default async function DashboardPage() {
   const bookings = await getUserBookings(user.$id)
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-64px)] p-6 md:p-12 relative overflow-y-auto overflow-x-hidden text-white w-full">
+    <div className="flex flex-col min-h-[calc(100vh-64px)] p-4 md:p-12 relative overflow-y-auto overflow-x-hidden text-white w-full">
       {/* Background flair */}
       <div className="absolute top-1/4 -right-20 w-80 h-80 bg-green-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-4xl mx-auto w-full z-10 flex flex-col">
-        <div className="flex justify-between items-center bg-[#1A1D21] border border-[#363A3D] rounded-3xl p-6 md:p-8 mb-8 shadow-lg">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 bg-[#1A1D21] border border-[#363A3D] rounded-3xl p-5 md:p-8 mb-6 md:mb-8 shadow-lg">
           <div>
-            <h1 className="text-3xl font-bold">Your Bookings</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">Your Bookings</h1>
             <p className="text-dark-600 mt-2">Manage and track your event bookings.</p>
           </div>
           <Link
             href="/bookings/new"
-            className="hidden md:flex items-center gap-2 rounded-xl bg-green-500 px-6 py-3 text-sm font-bold text-black hover:bg-green-400 transition-all shadow-[0_0_15px_rgba(34,197,94,0.2)]"
+            className="flex items-center justify-center w-full md:w-auto gap-2 rounded-xl bg-green-500 px-6 py-3 text-sm font-bold text-black hover:bg-green-400 transition-all shadow-[0_0_15px_rgba(34,197,94,0.2)]"
           >
             <PlusCircle className="w-5 h-5" />
             New Booking
@@ -34,7 +34,7 @@ export default async function DashboardPage() {
         </div>
 
         {bookings.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-12 bg-[#1A1D21] border border-[#363A3D] rounded-3xl text-center">
+          <div className="flex flex-col items-center justify-center p-8 md:p-12 bg-[#1A1D21] border border-[#363A3D] rounded-3xl text-center">
             <div className="bg-[#131619] p-4 rounded-full mb-4 border border-dark-400">
                <Calendar className="w-10 h-10 text-dark-600" />
             </div>

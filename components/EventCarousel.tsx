@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const events = [
   {
@@ -28,7 +28,18 @@ const events = [
 
 export default function EventCarousel() {
   const [index, setIndex] = useState(0);
-  const visibleCards = 3;
+  const [visibleCards, setVisibleCards] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) setVisibleCards(1);
+      else if (window.innerWidth < 1024) setVisibleCards(2);
+      else setVisibleCards(3);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const startX = useRef<number | null>(null);
 
@@ -68,7 +79,7 @@ export default function EventCarousel() {
       {index > 0 && (
         <button
           onClick={prev}
-          className="absolute -left-6 top-1/2 -translate-y-1/2 bg-dark-300 p-3 rounded-full hover:bg-dark-400 transition"
+          className="absolute left-2 z-20 top-1/2 -translate-y-1/2 bg-dark-300 border border-dark-400 p-3 rounded-full hover:bg-dark-400 transition shadow-lg"
         >
           ←
         </button>
@@ -81,28 +92,31 @@ export default function EventCarousel() {
         onTouchEnd={handleTouchEnd}
       >
         <div
-          className="flex gap-6 transition-transform duration-500"
+          className="flex transition-transform duration-500"
           style={{ transform: `translateX(-${index * (100 / visibleCards)}%)` }}
         >
           {events.map((event, i) => (
             <div
               key={i}
-              className="relative min-w-[33.333%] rounded-xl overflow-hidden group"
+              style={{ width: `${100 / visibleCards}%` }}
+              className="px-2 md:px-3 flex-shrink-0"
             >
-              {/* IMAGE */}
-              <Image
-                src={event.image}
-                alt={event.title}
-                width={500}
-                height={350}
-                loading="lazy"
-                className="w-full h-[22rem] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              />
+              <div className="relative rounded-xl overflow-hidden group h-full">
+                {/* IMAGE */}
+                <Image
+                  src={event.image}
+                  alt={event.title}
+                  width={500}
+                  height={350}
+                  loading="lazy"
+                  className="w-full h-[22rem] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
 
-              {/* GLASS OVERLAY */}
-              <div className="absolute bottom-0 left-0 w-full p-5 backdrop-blur-md bg-black/60 border-t border-white/10 group-hover:bg-black/40 transition-colors duration-500">
-                <h3 className="text-base font-bold text-white tracking-wide">{event.title}</h3>
-                <p className="text-sm text-green-400 mt-1 font-medium">{event.vendor}</p>
+                {/* GLASS OVERLAY */}
+                <div className="absolute bottom-0 left-0 w-full p-5 backdrop-blur-md bg-black/60 border-t border-white/10 group-hover:bg-black/40 transition-colors duration-500">
+                  <h3 className="text-base font-bold text-white tracking-wide">{event.title}</h3>
+                  <p className="text-sm text-green-400 mt-1 font-medium">{event.vendor}</p>
+                </div>
               </div>
             </div>
           ))}
@@ -113,7 +127,7 @@ export default function EventCarousel() {
       {index < events.length - visibleCards && (
         <button
           onClick={next}
-          className="absolute -right-6 top-1/2 -translate-y-1/2 bg-dark-300 p-3 rounded-full hover:bg-dark-400 transition"
+          className="absolute right-2 z-20 top-1/2 -translate-y-1/2 bg-dark-300 border border-dark-400 p-3 rounded-full hover:bg-dark-400 transition shadow-lg"
         >
           →
         </button>

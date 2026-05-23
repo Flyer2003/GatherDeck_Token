@@ -73,7 +73,7 @@ export default async function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section className="container mx-auto px-6 py-24 grid md:grid-cols-3 gap-8 text-center relative z-10">
+      <section className="container mx-auto px-6 py-16 md:py-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10">
 
         <Reveal>
           <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
@@ -105,10 +105,10 @@ export default async function LandingPage() {
       </section>
 
       {/* EVENT SHOWCASE */}
-      <section className="py-24 container mx-auto px-6">
+      <section className="py-16 md:py-24 container mx-auto px-4 md:px-6">
 
         <Reveal>
-          <h2 className="text-3xl font-bold text-center mb-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-16">
             Events Organized by Our Vendors
           </h2>
         </Reveal>
@@ -121,11 +121,11 @@ export default async function LandingPage() {
       <Testimonials />
 
       {/* FINAL CTA */}
-      <section className="container mx-auto px-6 py-28 text-center">
+      <section className="container mx-auto px-6 py-16 md:py-28 text-center">
 
         <Reveal>
 
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-3xl md:text-4xl font-bold">
             Start Planning Your Event Today
           </h2>
 
