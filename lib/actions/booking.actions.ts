@@ -4,7 +4,7 @@ import { ID, Query } from "node-appwrite"
 import { databases, storage } from "@/lib/appwrite.config"
 import { parseStringify } from "../utils"
 import { InputFile } from "node-appwrite/file"
-import DOMPurify from "isomorphic-dompurify"
+import sanitizeHtml from "sanitize-html"
 import { getEvent } from "./event.actions"
 import { auth } from "@clerk/nextjs/server"
 const DATABASE_ID = process.env.DATABASE_ID!
@@ -20,7 +20,7 @@ export const createBooking = async ({
 
 
   try {
-    const { userId: authedId } = auth();
+    const { userId: authedId } = await auth();
     if (!authedId || authedId !== booking.userId) {
       throw new Error("Unauthorized");
     }
@@ -29,7 +29,7 @@ export const createBooking = async ({
     const sanitizedBooking = Object.fromEntries(
       Object.entries(booking).map(([key, value]) => [
         key,
-        typeof value === "string" ? DOMPurify.sanitize(value) : value,
+        typeof value === "string" ? sanitizeHtml(value) : value,
       ])
     );
 
@@ -112,7 +112,7 @@ export const getBooking = async (bookingId: string) => {
 
 
   try {
-    auth().protect();
+    (await auth()).protect();
 
     return parseStringify(
       await databases.getDocument(
@@ -130,7 +130,7 @@ export const getBooking = async (bookingId: string) => {
 
 export const getUserBookings = async (userId: string) => {
   try {
-    const { userId: authedId } = auth();
+    const { userId: authedId } = await auth();
     if (!authedId || authedId !== userId) {
       throw new Error("Unauthorized");
     }
@@ -149,4 +149,4 @@ export const getUserBookings = async (userId: string) => {
     console.log("getUserBookings error:", error)
     return []
   }
-}
+}

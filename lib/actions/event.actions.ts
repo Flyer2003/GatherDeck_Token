@@ -3,7 +3,7 @@
 import { ID, Query } from "node-appwrite"
 import { databases } from "@/lib/appwrite.config"
 import { parseStringify } from "../utils"
-import DOMPurify from "isomorphic-dompurify"
+import sanitizeHtml from "sanitize-html"
 import { auth } from "@clerk/nextjs/server"
 
 const DATABASE_ID = process.env.DATABASE_ID!
@@ -13,7 +13,7 @@ const EVENT_COLLECTION_ID = process.env.EVENT_COLLECTION_ID!
 export const getEvent = async (userId: string) => {
 
   try {
-    const { userId: authedId } = auth();
+    const { userId: authedId } = await auth();
     if (!authedId || authedId !== userId) {
       throw new Error("Unauthorized");
     }
@@ -35,11 +35,11 @@ export const getEvent = async (userId: string) => {
 export const registerEvent = async (event: RegisterUserParams) => {
 
   try {
-    auth().protect();
+    (await auth()).protect();
     const sanitizedEvent = Object.fromEntries(
       Object.entries(event).map(([key, value]) => [
         key,
-        typeof value === "string" ? DOMPurify.sanitize(value) : value,
+        typeof value === "string" ? sanitizeHtml(value) : value,
       ])
     );
 

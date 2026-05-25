@@ -42,7 +42,6 @@ const nextConfig = {
       allowedOrigins: ["gatherdeck.in", "www.gatherdeck.in"],
     },
   },
-  serverExternalPackages: ["isomorphic-dompurify"],
 };
 
 
