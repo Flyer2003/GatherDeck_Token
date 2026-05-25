@@ -37,6 +37,11 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["gatherdeck.in", "www.gatherdeck.in"],
+    },
+  },
 };
 
 export default withSentryConfig(nextConfig, {
