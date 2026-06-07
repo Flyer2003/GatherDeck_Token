@@ -14,11 +14,11 @@ const fontSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://gatherdeck.in"),
   title: {
-    default: "GatherDeck – Book Event Vendors, Venues & Catering",
+    default: "GatherDeck – Top Event Planners, Venues & Catering in Kerala",
     template: "%s | GatherDeck",
   },
   description:
-    "GatherDeck is an event vendor marketplace to book event managers, caterers, venues, decorators, and other event services for weddings, corporate events, and parties.",
+    "GatherDeck is Kerala's premium event vendor marketplace. Book verified event managers, catering services, venues, and decorators in Kochi, Trivandrum, Kozhikode, and Thrissur for weddings, corporate events, and parties.",
   keywords: [
     "event booking platform",
     "event vendors marketplace",
@@ -120,6 +120,27 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="dark">
             {children}
           </ThemeProvider>
+          {/* JSON-LD Schema for Organization */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "GatherDeck",
+                "url": "https://gatherdeck.in",
+                "logo": "https://gatherdeck.in/og-event-marketplace.png",
+                "description": "GatherDeck is Kerala's leading event vendor marketplace to book trusted event managers, catering services, venues, and decorators.",
+                "areaServed": ["Kochi", "Thiruvananthapuram", "Kozhikode", "Thrissur", "Kerala"],
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "contactType": "customer service",
+                  "email": "support@gatherdeck.in",
+                  "availableLanguage": ["English", "Malayalam"]
+                }
+              })
+            }}
+          />
         </body>
       </html>
     </ClerkProvider>

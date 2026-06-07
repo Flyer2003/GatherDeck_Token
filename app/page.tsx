@@ -7,11 +7,16 @@ import { PrivacyPolicyModal } from "@/components/PrivacyPolicyModal"
 // Lazy load below-the-fold components
 const EventCarousel = dynamic(() => import("@/components/EventCarousel"))
 const Testimonials = dynamic(() => import("@/components/Testimonials"))
+const FAQ = dynamic(() => import("@/components/FAQ"))
+import Footer from "@/components/Footer"
 
 export const metadata = {
-  title: "GatherDeck – Book Event Vendors, Venues & Catering",
+  title: "GatherDeck – Event Planners & Venues in Kochi, Trivandrum, Kozhikode",
   description:
-    "GatherDeck is an event vendor marketplace to book event managers, catering services, venues, and event requirements.",
+    "GatherDeck is Kerala's premium event vendor marketplace to book event managers, catering services, venues, and event requirements across Kochi, Trivandrum, Thrissur and Kozhikode.",
+  alternates: {
+    canonical: "/",
+  },
 }
 
 export default async function LandingPage() {
@@ -73,35 +78,43 @@ export default async function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section className="container mx-auto px-6 py-16 md:py-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10">
-
+      <section className="container mx-auto px-6 py-16 md:py-24 relative z-10">
         <Reveal>
-          <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
-            <h3 className="text-xl font-bold tracking-tight text-white">Verified Vendors</h3>
-            <p className="mt-4 text-dark-600 leading-relaxed">
-              Trusted event managers and venues verified for quality.
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose GatherDeck in Kerala?</h2>
+            <p className="text-dark-600">
+              GatherDeck simplifies the event planning process. Whether you are in Kochi, Trivandrum, Kozhikode or Thrissur, find the perfect professionals to make your event extraordinary. From elegant weddings to grand corporate events, we bring the best vendors directly to you.
             </p>
           </div>
         </Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <Reveal>
+            <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
+              <h3 className="text-xl font-bold tracking-tight text-white">Verified Vendors</h3>
+              <p className="mt-4 text-dark-600 leading-relaxed">
+                We strict-vet trusted event managers, premium venues, caterers, and decorators ensuring top-notch quality for your special day.
+              </p>
+            </div>
+          </Reveal>
 
-        <Reveal>
-          <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
-            <h3 className="text-xl font-bold tracking-tight text-white">Simple Booking</h3>
-            <p className="mt-4 text-dark-600 leading-relaxed">
-              Book your entire event seamlessly through one intuitive platform.
-            </p>
-          </div>
-        </Reveal>
+          <Reveal>
+            <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
+              <h3 className="text-xl font-bold tracking-tight text-white">Simple Booking</h3>
+              <p className="mt-4 text-dark-600 leading-relaxed">
+                Connect and book your entire event seamlessly through our mobile-first, intuitive dashboard without any hidden charges.
+              </p>
+            </div>
+          </Reveal>
 
-        <Reveal>
-          <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
-            <h3 className="text-xl font-bold tracking-tight text-white">All Event Types</h3>
-            <p className="mt-4 text-dark-600 leading-relaxed">
-              Weddings, corporate events and unforgettable celebrations.
-            </p>
-          </div>
-        </Reveal>
-
+          <Reveal>
+            <div className="h-full p-8 rounded-2xl bg-[#1A1D21] border border-[#363A3D] hover:border-green-500/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.1)]">
+              <h3 className="text-xl font-bold tracking-tight text-white">All Event Types</h3>
+              <p className="mt-4 text-dark-600 leading-relaxed">
+                Specializing in luxury weddings, corporate summits, birthday parties, and unforgettable celebrations across Kerala.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* EVENT SHOWCASE */}
@@ -120,47 +133,55 @@ export default async function LandingPage() {
       {/* TESTIMONIALS */}
       <Testimonials />
 
+      {/* FAQ SECTION */}
+      <FAQ />
+
       {/* FINAL CTA */}
-      <section className="container mx-auto px-6 py-16 md:py-28 text-center">
+      <section className="container mx-auto px-6 py-20 md:py-28">
 
         <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-[#363A3D] bg-[#1A1D21] p-10 md:p-16 text-center">
 
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Start Planning Your Event Today
-          </h2>
+            {/* Background Effects */}
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-transparent to-blue-500/10"></div>
 
-          <p className="mt-6 text-dark-600">
-            Discover trusted vendors instantly.
-          </p>
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 bg-green-500/10 blur-[120px] rounded-full"></div>
 
-          <Link
-            href="/register"
-            className="inline-block mt-10 rounded-xl bg-green-500 px-12 py-4 text-lg font-semibold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_40px_rgba(34,197,94,0.5)]"
-          >
-            Get Started
-          </Link>
+            <div className="relative z-10">
 
+              <span className="inline-flex items-center rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 text-sm font-medium text-green-400 mb-6">
+                Ready to Plan Your Event?
+              </span>
+
+              <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                Start Planning Your
+                <span className="block text-green-400 mt-2">
+                  Dream Event Today
+                </span>
+              </h2>
+
+              <p className="mt-6 max-w-2xl mx-auto text-dark-600 text-lg leading-relaxed">
+                Discover trusted event managers, caterers, venues, decorators
+                and entertainment partners across Kerala. Book confidently and
+                create unforgettable experiences with GatherDeck.
+              </p>
+
+              <Link
+                href="/register"
+                className="inline-flex items-center justify-center mt-10 rounded-xl bg-green-500 px-12 py-4 text-lg font-bold text-black hover:bg-green-400 hover:scale-[1.03] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.25)] hover:shadow-[0_0_40px_rgba(34,197,94,0.5)]"
+              >
+                Get Started
+              </Link>
+
+            </div>
+
+          </div>
         </Reveal>
 
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-dark-400 py-10 text-center">
-
-        <p className="text-dark-600 text-sm">
-          © 2025 GatherDeck
-        </p>
-
-        <div className="flex justify-center gap-6 mt-4 text-sm text-dark-600">
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-          <PrivacyPolicyModal>
-            <button className="hover:text-white transition-colors">Privacy</button>
-          </PrivacyPolicyModal>
-        </div>
-
-      </footer>
-
+      <Footer />
     </main>
   )
 }

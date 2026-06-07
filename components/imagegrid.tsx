@@ -36,7 +36,7 @@ export default function ImageGrid({
         <div className="absolute h-[239.486px] left-0 rounded-[20px] top-[386.23px] w-[210.952px] overflow-hidden">
           {image1 && (
             <Image
-              alt="Grid image 1"
+              alt="Premium wedding decoration set up by GatherDeck event vendors"
               className="object-cover rounded-[20px]"
               src={image1}
               fill
@@ -53,7 +53,7 @@ export default function ImageGrid({
         <div className="absolute h-[239.486px] left-[241.52px] rounded-[20px] top-[540.12px] w-[210.952px] overflow-hidden">
           {image3 && (
             <Image
-              alt="Grid image 3"
+              alt="Corporate event catering services and dining setup"
               className="object-cover rounded-[20px]"
               src={image3}
               fill
@@ -68,7 +68,7 @@ export default function ImageGrid({
         <div className="absolute h-[239.486px] left-[483.05px] rounded-[20px] top-[386.23px] w-[210.952px] overflow-hidden">
           {image2 && (
             <Image
-              alt="Grid image 2"
+              alt="Luxury event venue hall with lighting in Kerala"
               className="object-cover rounded-[20px]"
               src={image2}
               fill

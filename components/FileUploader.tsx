@@ -41,16 +41,16 @@ const FileUploader = ({ files, onChange }: FileUploaderProps) => {
           src={convertFileToUrl(files[0])}
           width={1000}
           height={1000}
-          alt="uploaded image"
+          alt="GatherDeck User Uploaded File"
           className="max-h-[400px] overflow-hidden object-cover"
         />
       ) : (
         <>
-          <Image
+          <Image 
             src="/assets/icons/upload.svg"
             width={40}
             height={40}
-            alt="upload"
+            alt="GatherDeck User Uploaded File Icon"
           />
 
           <div className="file-upload_label">
