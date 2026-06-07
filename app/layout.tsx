@@ -12,7 +12,7 @@ const fontSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gatherdeck.in"),
+  metadataBase: new URL("https://www.gatherdeck.in"),
   title: {
     default: "GatherDeck – Top Event Planners, Venues & Catering in Kerala",
     template: "%s | GatherDeck",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "GatherDeck – Event Vendor Marketplace",
     description:
       "Book verified event managers, caterers, venues, and vendors for weddings, corporate events, and celebrations.",
-    url: "https://gatherdeck.in",
+    url: "https://www.gatherdeck.in",
     images: [
       {
         url: "/og-event-marketplace.png",
@@ -128,8 +128,8 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "GatherDeck",
-                "url": "https://gatherdeck.in",
-                "logo": "https://gatherdeck.in/og-event-marketplace.png",
+                "url": "https://www.gatherdeck.in",
+                "logo": "https://www.gatherdeck.in/og-event-marketplace.png",
                 "description": "GatherDeck is Kerala's leading event vendor marketplace to book trusted event managers, catering services, venues, and decorators.",
                 "areaServed": ["Kochi", "Thiruvananthapuram", "Kozhikode", "Thrissur", "Kerala"],
                 "contactPoint": {

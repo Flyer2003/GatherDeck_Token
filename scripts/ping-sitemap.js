@@ -3,14 +3,14 @@
 
 const https = require('https');
 
-const SITEMAP_URL = 'https://gatherdeck.in/sitemap.xml';
+const SITEMAP_URL = 'https://www.gatherdeck.in/sitemap.xml';
 const GOOGLE_PING_URL = `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`;
 
 console.log(`Pinging Google with sitemap: ${SITEMAP_URL}...`);
 
 https.get(GOOGLE_PING_URL, (res) => {
   console.log(`Status Code: ${res.statusCode}`);
-  
+
   if (res.statusCode === 200 || res.statusCode === 204) {
     console.log('✅ Successfully pinged Google Search Console!');
   } else {

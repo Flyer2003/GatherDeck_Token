@@ -56,13 +56,13 @@ export const Breadcrumbs = ({ items }: { items: BreadcrumbItem[] }) => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://gatherdeck.in/"
+                "item": "https://www.gatherdeck.in/"
               },
               ...items.map((item, index) => ({
                 "@type": "ListItem",
                 "position": index + 2,
                 "name": item.label,
-                "item": `https://gatherdeck.in${item.href}`
+                "item": `https://www.gatherdeck.in${item.href}`
               }))
             ]
           })
