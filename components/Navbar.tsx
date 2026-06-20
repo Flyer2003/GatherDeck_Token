@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import CustomUserMenu from "./CustomUserMenu";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -55,13 +56,7 @@ export default function Navbar() {
           </SignedOut>
 
           <SignedIn>
-            <Link
-              href="/dashboard"
-              className="text-sm font-medium hover:text-green-400"
-            >
-              Dashboard
-            </Link>
-            <UserButton afterSignOutUrl="/" />
+            <CustomUserMenu />
           </SignedIn>
 
         </nav>

@@ -1,70 +1,83 @@
-import Reveal from "./Reveal";
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { ChevronDown, ArrowRight } from "lucide-react";
+
+const faqPreview = [
+  {
+    question: "How does GatherDeck work?",
+    answer:
+      "Submit your event requirements and connect with trusted vendors for venues, catering, photography, decoration, and event management.",
+  },
+  {
+    question: "Is GatherDeck free to use?",
+    answer:
+      "Yes. Customers can browse and submit event requirements completely free.",
+  },
+  {
+    question: "Can I book multiple services together?",
+    answer:
+      "Yes. You can book multiple event services through a single request.",
+  },
+  {
+    question: "Are vendors verified?",
+    answer:
+      "We review vendor profiles before they are listed on GatherDeck.",
+  },
+];
 
 export default function FAQ() {
+  const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <>
-      <section className="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
-        <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-dark-600">Everything you need to know about booking with GatherDeck.</p>
-          </div>
-          
-          <div className="space-y-6">
-            <div className="bg-[#1A1D21] border border-[#363A3D] rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">How do I book an event manager or venue?</h3>
-              <p className="text-dark-600">Simply sign up, browse our verified vendors across Kerala (Kochi, Trivandrum, etc.), and submit a booking request. The vendor will contact you directly to finalize details.</p>
-            </div>
-            
-            <div className="bg-[#1A1D21] border border-[#363A3D] rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">Are the event vendors verified?</h3>
-              <p className="text-dark-600">Yes! We thoroughly vet all event managers, caterers, and decorators to ensure high-quality service and reliability for your events.</p>
-            </div>
+    <section className="container mx-auto max-w-4xl px-6 py-20">
+      <div className="mb-10 text-center">
+        <h2 className="text-3xl font-bold md:text-4xl">
+          Frequently Asked Questions
+        </h2>
 
-            <div className="bg-[#1A1D21] border border-[#363A3D] rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">Do you charge a booking fee?</h3>
-              <p className="text-dark-600">GatherDeck is completely free for users looking to find and book vendors. You only pay for the services you hire directly to the vendor.</p>
-            </div>
-          </div>
-        </Reveal>
-      </section>
+        <p className="mt-3 text-dark-600">
+          Quick answers to common questions.
+        </p>
+      </div>
 
-      {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "How do I book an event manager or venue?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Simply sign up, browse our verified vendors across Kerala (Kochi, Trivandrum, etc.), and submit a booking request. The vendor will contact you directly to finalize details."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Are the event vendors verified?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes! We thoroughly vet all event managers, caterers, and decorators to ensure high-quality service and reliability for your events."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Do you charge a booking fee?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "GatherDeck is completely free for users looking to find and book vendors. You only pay for the services you hire directly to the vendor."
-                }
-              }
-            ]
-          })
-        }}
-      />
-    </>
+      <div className="space-y-3">
+        {faqPreview.map((faq, index) => (
+          <div
+            key={index}
+            className="rounded-xl border border-[#2A2D31] bg-[#171A1D]"
+          >
+            <button
+              onClick={() => setOpen(open === index ? null : index)}
+              className="flex w-full items-center justify-between p-5 text-left"
+            >
+              <span className="font-medium">{faq.question}</span>
+
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${open === index ? "rotate-180" : ""
+                  }`}
+              />
+            </button>
+
+            {open === index && (
+              <div className="px-5 pb-5 text-dark-600">
+                {faq.answer}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 text-center">
+        <Link
+          href="/faq"
+          className="inline-flex items-center gap-2 font-medium text-primary transition-opacity hover:opacity-80"
+        >
+          View All FAQs
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </section>
   );
 }

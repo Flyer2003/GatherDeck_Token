@@ -6,25 +6,25 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/10 bg-[#0B0E12]">
       {/* Main Footer */}
-      <div className="container mx-auto max-w-7xl px-6 py-16">
+      <div className="container mx-auto max-w-7xl px-6 py-10">
 
-        <div className="grid grid-cols-12 gap-8">
+        <div className="grid grid-cols-12 gap-6">
 
           {/* Brand */}
           <div className="col-span-12 lg:col-span-5">
 
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-flex items-center">
               <Image
                 src="/assets/icons/GatherDeck.svg"
                 alt="GatherDeck logo"
-                width={220}
-                height={60}
+                width={150}
+                height={38}
                 priority
-                className="h-12 w-auto"
+                className="h-8 w-auto"
               />
             </Link>
 
-            <p className="mt-6 max-w-md text-sm leading-8 text-gray-400">
+            <p className="mt-4 max-w-md text-sm leading-7 text-gray-400">
               Kerala's premium marketplace for booking event planners,
               venues, caterers, decorators and event services.
               Plan weddings, corporate events and celebrations
@@ -36,11 +36,11 @@ export default function Footer() {
           {/* Cities */}
           <div className="col-span-12 sm:col-span-6 lg:col-span-3">
 
-            <h3 className="text-lg font-semibold text-white mb-6">
+            <h3 className="text-lg font-semibold text-white mb-4">
               Top Cities
             </h3>
 
-            <ul className="space-y-4 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-gray-400">
 
               <li>
                 <Link
@@ -104,7 +104,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
 
-        <div className="container mx-auto max-w-7xl px-6 py-6">
+        <div className="container mx-auto max-w-7xl px-6 py-4">
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
 

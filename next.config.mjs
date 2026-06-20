@@ -35,6 +35,10 @@ const nextConfig = {
         hostname: "fra.cloud.appwrite.io",
         pathname: "/v1/storage/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
     ],
   },
   experimental: {

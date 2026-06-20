@@ -6,7 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { AuthCard } from "@/components/AuthCard";
 import { Loader2 } from "lucide-react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 
 export default function SignUpPage() {
   const { isLoaded, signUp, setActive } = useSignUp();

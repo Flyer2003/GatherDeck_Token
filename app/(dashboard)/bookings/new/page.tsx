@@ -47,7 +47,7 @@ export default async function NewBooking() {
 
       <div className="relative hidden lg:block max-w-[450px] w-full flex-none">
         <Image
-          src="/assets/images/register-img.png"
+          src="/assets/images/event3.png"
           height={1000}
           width={1000}
           alt="booking image"
