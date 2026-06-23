@@ -7,10 +7,10 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  CalendarDays, 
-  Settings, 
-  LogOut 
+import {
+  CalendarDays,
+  Settings,
+  LogOut
 } from "lucide-react";
 
 export default function CustomUserMenu() {
@@ -93,7 +93,7 @@ export default function CustomUserMenu() {
   const fullName = user.fullName || email?.split('@')[0] || "User";
 
   const dropdownMenu = (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           ref={menuRef}
@@ -121,8 +121,8 @@ export default function CustomUserMenu() {
 
           {/* Menu Items */}
           <div className="flex flex-col gap-1 py-1">
-            <Link 
-              href="/dashboard" 
+            <Link
+              href="/dashboard"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-[#1A1D21] hover:text-white transition-colors"
               role="menuitem"
@@ -130,8 +130,8 @@ export default function CustomUserMenu() {
               <CalendarDays className="w-4 h-4 text-dark-600" />
               My Bookings
             </Link>
-            <Link 
-              href="/account" 
+            <Link
+              href="/account"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-[#1A1D21] hover:text-white transition-colors"
               role="menuitem"
@@ -139,10 +139,10 @@ export default function CustomUserMenu() {
               <Settings className="w-4 h-4 text-dark-600" />
               Account Settings
             </Link>
-            
+
             <div className="h-[1px] w-full bg-[#363A3D] my-1" />
-            
-            <button 
+
+            <button
               onClick={() => signOut({ redirectUrl: "/" })}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-500/10 transition-colors text-left"
               role="menuitem"

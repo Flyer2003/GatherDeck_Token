@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 import CustomUserMenu from "./CustomUserMenu";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,38 +20,49 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinkClass =
+    "text-sm font-medium text-gray-300 hover:text-white transition-colors";
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all border-b ${scrolled
+      className={`fixed top-0 left-0 w-full z-50 border-b transition-all duration-300 ${scrolled
         ? "bg-dark-200/95 backdrop-blur-md border-dark-400"
         : "bg-transparent border-transparent"
         }`}
     >
-      <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-
-        <Link href="/" className="cursor-pointer">
+      <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/">
           <Image
             src="/assets/icons/GatherDeck.svg"
-            alt="GatherDeck logo"
-            width={130}
-            height={32}
+            alt="GatherDeck Logo"
+            width={120}
+            height={30}
             priority
+            className="w-auto h-7 sm:h-8"
           />
         </Link>
 
-        <nav className="flex items-center gap-6">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href="/" className={navLinkClass}>
+            Home
+          </Link>
+
+          <SignedIn>
+            <Link href="/dashboard" className={navLinkClass}>
+              Dashboard
+            </Link>
+          </SignedIn>
 
           <SignedOut>
-            <Link
-              href="/sign-in"
-              className="text-sm font-semibold text-gray-300 hover:text-white transition-colors"
-            >
+            <Link href="/sign-in" className={navLinkClass}>
               Login
             </Link>
 
             <Link
               href="/sign-up"
-              className="rounded-xl bg-green-500 px-5 py-2.5 text-sm font-bold text-black hover:bg-green-400 hover:scale-[1.03] transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.2)] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)]"
+              className="rounded-xl bg-green-500 px-5 py-2.5 text-sm font-bold text-black hover:bg-green-400 transition-all"
             >
               Start Booking
             </Link>
@@ -58,9 +71,64 @@ export default function Navbar() {
           <SignedIn>
             <CustomUserMenu />
           </SignedIn>
-
         </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden text-white"
+          aria-label="Toggle Menu"
+        >
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="md:hidden bg-dark-200/98 backdrop-blur-xl border-t border-dark-400">
+          <nav className="flex flex-col px-6 py-4 gap-4">
+            <Link
+              href="/"
+              className={navLinkClass}
+              onClick={() => setMobileOpen(false)}
+            >
+              Home
+            </Link>
+
+            <SignedIn>
+              <Link
+                href="/dashboard"
+                className={navLinkClass}
+                onClick={() => setMobileOpen(false)}
+              >
+                Dashboard
+              </Link>
+
+              <div className="pt-2">
+                <CustomUserMenu />
+              </div>
+            </SignedIn>
+
+            <SignedOut>
+              <Link
+                href="/sign-in"
+                className={navLinkClass}
+                onClick={() => setMobileOpen(false)}
+              >
+                Login
+              </Link>
+
+              <Link
+                href="/sign-up"
+                className="rounded-xl bg-green-500 px-4 py-3 text-center font-semibold text-black"
+                onClick={() => setMobileOpen(false)}
+              >
+                Start Booking
+              </Link>
+            </SignedOut>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
