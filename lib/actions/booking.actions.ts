@@ -14,139 +14,139 @@ const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT!
 const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID!
 
 export const createBooking = async ({
-  eventImages,
-  ...booking
+    eventImages,
+    ...booking
 }: CreateBookingParams) => {
 
 
-  try {
-    const { userId: authedId } = await auth();
-    if (!authedId || authedId !== booking.userId) {
-      throw new Error("Unauthorized");
-    }
-
-    // Sanitize string inputs in booking
-    const sanitizedBooking = Object.fromEntries(
-      Object.entries(booking).map(([key, value]) => [
-        key,
-        typeof value === "string" ? sanitizeHtml(value) : value,
-      ])
-    );
-
-    let fileData = {}
-
-    if (eventImages) {
-
-      const inputFile = InputFile.fromBuffer(
-        eventImages.get("blobFile") as Blob,
-        eventImages.get("fileName") as string
-      )
-
-      const file = await storage.createFile(
-        BUCKET_ID,
-        ID.unique(),
-        inputFile
-      )
-
-      fileData = {
-        eventImagesId: file.$id,
-        eventImagesUrl:
-          `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view?project=${PROJECT_ID}`,
-      }
-    }
-
-    const newBooking = await databases.createDocument(
-      DATABASE_ID,
-      BOOKINGS_COLLECTION_ID,
-      ID.unique(),
-      {
-        ...sanitizedBooking,
-        ...fileData,
-      }
-    )
-
-    // Attempt to send a Telegram Notification
     try {
-      const tgToken = process.env.TELEGRAM_TOKEN;
-      const tgChatId = process.env.ADMIN_CHAT_ID;
+        const { userId: authedId } = await auth();
+        if (!authedId || authedId !== booking.userId) {
+            throw new Error("Unauthorized");
+        }
 
-      if (tgToken && tgChatId) {
-        // Fetch user information using getEvent which contains name, phone, email
-        const eventDoc = await getEvent(booking.userId);
+        // Sanitize string inputs in booking
+        const sanitizedBooking = Object.fromEntries(
+            Object.entries(booking).map(([key, value]) => [
+                key,
+                typeof value === "string" ? sanitizeHtml(value) : value,
+            ])
+        );
 
-        const name = eventDoc?.name || "Unknown";
-        const phone = eventDoc?.phone || "Unknown";
-        const email = eventDoc?.email || "Unknown";
-        const eventType = booking.eventType || "Event";
+        let fileData = {}
 
-        const message = `🚨 *New Booking Created* 🚨\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Type:* ${eventType}`;
+        if (eventImages) {
 
-        await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: tgChatId,
-            text: message,
-            parse_mode: "Markdown",
-          }),
-        });
-      }
-    } catch (tgError) {
-      console.error("Telegram notification failed:", tgError);
-      // We don't throw here to ensure the booking itself still succeeds
+            const inputFile = InputFile.fromBuffer(
+                eventImages.get("blobFile") as Blob,
+                eventImages.get("fileName") as string
+            )
+
+            const file = await storage.createFile(
+                BUCKET_ID,
+                ID.unique(),
+                inputFile
+            )
+
+            fileData = {
+                eventImagesId: file.$id,
+                eventImagesUrl:
+                    `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view?project=${PROJECT_ID}`,
+            }
+        }
+
+        const newBooking = await databases.createDocument(
+            DATABASE_ID,
+            BOOKINGS_COLLECTION_ID,
+            ID.unique(),
+            {
+                ...sanitizedBooking,
+                ...fileData,
+            }
+        )
+
+        // Attempt to send a Telegram Notification
+        try {
+            const tgToken = process.env.TELEGRAM_TOKEN;
+            const tgChatId = process.env.ADMIN_CHAT_ID;
+
+            if (tgToken && tgChatId) {
+                // Fetch user information using getEvent which contains name, phone, email
+                const eventDoc = await getEvent(booking.userId);
+
+                const name = eventDoc?.name || "Unknown";
+                const phone = eventDoc?.phone || "Unknown";
+                const email = eventDoc?.email || "Unknown";
+                const eventType = booking.eventType || "Event";
+
+                const message = `🚨 *New Booking Created* 🚨\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Type:* ${eventType}`;
+
+                await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        chat_id: tgChatId,
+                        text: message,
+                        parse_mode: "Markdown",
+                    }),
+                });
+            }
+        } catch (tgError) {
+            console.error("Telegram notification failed:", tgError);
+            // We don't throw here to ensure the booking itself still succeeds
+        }
+
+        return parseStringify(newBooking)
+
+    } catch (error) {
+
+        console.log("createBooking error:", error)
+
+        return null
     }
-
-    return parseStringify(newBooking)
-
-  } catch (error) {
-
-    console.log("createBooking error:", error)
-
-    return null
-  }
 }
 
 export const getBooking = async (bookingId: string) => {
 
 
-  try {
-    (await auth()).protect();
+    try {
+        (await auth()).protect();
 
-    return parseStringify(
-      await databases.getDocument(
-        DATABASE_ID,
-        BOOKINGS_COLLECTION_ID,
-        bookingId
-      )
-    )
+        return parseStringify(
+            await databases.getDocument(
+                DATABASE_ID,
+                BOOKINGS_COLLECTION_ID,
+                bookingId
+            )
+        )
 
-  } catch {
+    } catch {
 
-    return null
-  }
+        return null
+    }
 }
 
 export const getUserBookings = async (userId: string) => {
-  try {
-    const { userId: authedId } = await auth();
-    if (!authedId || authedId !== userId) {
-      throw new Error("Unauthorized");
+    try {
+        const { userId: authedId } = await auth();
+        if (!authedId || authedId !== userId) {
+            throw new Error("Unauthorized");
+        }
+
+        const bookings = await databases.listDocuments(
+            DATABASE_ID,
+            BOOKINGS_COLLECTION_ID,
+            [
+                Query.equal("userId", [userId]),
+                Query.orderDesc("$createdAt")
+            ]
+        )
+
+        return parseStringify(bookings.documents)
+    } catch (error) {
+        console.log("getUserBookings error:", error)
+        return []
     }
-
-    const bookings = await databases.listDocuments(
-      DATABASE_ID,
-      BOOKINGS_COLLECTION_ID,
-      [
-        Query.equal("userId", [userId]),
-        Query.orderDesc("$createdAt")
-      ]
-    )
-
-    return parseStringify(bookings.documents)
-  } catch (error) {
-    console.log("getUserBookings error:", error)
-    return []
-  }
 }

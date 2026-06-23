@@ -22,7 +22,17 @@ export default function Register() {
 
   }, [user, isLoaded, router])
 
-  if (!isLoaded || !user) return null
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null
+  }
 
   const mappedUser = {
     $id: user.id,

@@ -36,6 +36,7 @@ interface CustomProps {
     fieldType: FormFieldType,
     name: string,
     label?: string | React.ReactNode,
+    description?: string | React.ReactNode
     placeholder?: string,
     iconSrc?: string,
     iconAlt?: string,
@@ -143,7 +144,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
 }
 
 const CustomFormField = (props: CustomProps) => {
-    const { control, fieldType, name, label } = props;
+    const { control, fieldType, name, label, description } = props;
 
     return (
         <FormField
@@ -156,6 +157,12 @@ const CustomFormField = (props: CustomProps) => {
                     )}
 
                     <RenderField field={field} props={props} />
+
+                    {description && (
+                        <FormDescription className="text-xs text-gray-400">
+                            {description}
+                        </FormDescription>
+                    )}
 
                     <FormMessage className="shad-error" />
                 </FormItem>

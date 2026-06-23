@@ -3,12 +3,12 @@
 import { useUser, useClerk, useSessionList, useSession } from "@clerk/nextjs";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { 
-  Loader2, 
-  Mail, 
-  Shield, 
-  Smartphone, 
-  Trash2, 
+import {
+  Loader2,
+  Mail,
+  Shield,
+  Smartphone,
+  Trash2,
   AlertTriangle,
   Laptop,
   CheckCircle2,
@@ -24,7 +24,7 @@ export default function AccountSettingsPage() {
   const { signOut } = useClerk();
   const { isLoaded: isSessionsLoaded, sessions } = useSessionList();
   const { session: currentSession } = useSession();
-  
+
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,7 +54,7 @@ export default function AccountSettingsPage() {
 
   const primaryEmail = user.primaryEmailAddress?.emailAddress;
   const externalAccounts = user.externalAccounts || [];
-  
+
   const showStatus = (type: 'success' | 'error', text: string) => {
     setStatusMessage({ type, text });
     setTimeout(() => setStatusMessage(null), 5000);
@@ -133,7 +133,7 @@ export default function AccountSettingsPage() {
       setLoadingAction(null);
     }
   };
-  
+
   const handleSignOutOtherSessions = async () => {
     if (!currentSession) return;
     setLoadingAction("signoutAll");
@@ -174,11 +174,11 @@ export default function AccountSettingsPage() {
   return (
     <div className="container mx-auto px-4 lg:px-8 py-8 w-full max-w-7xl relative">
       <div className="flex flex-col lg:flex-row gap-8 w-full">
-        
+
         <ProfileSidebar />
 
         <div className="flex-1 w-full max-w-4xl flex flex-col space-y-8">
-          
+
           <div className="mb-2">
             <h1 className="text-3xl font-bold text-white mb-2">Account Settings</h1>
             <p className="text-dark-600">Manage your GatherDeck profile, security, and preferences.</p>
@@ -192,7 +192,7 @@ export default function AccountSettingsPage() {
           )}
 
           <div className="flex flex-col space-y-8">
-            
+
             {/* 1. Profile Information */}
             <section className="bg-[#131619] border border-[#363A3D] rounded-2xl overflow-hidden shadow-sm">
               <div className="p-6 border-b border-[#363A3D]">
@@ -212,14 +212,14 @@ export default function AccountSettingsPage() {
                     )}
                   </div>
                   <div>
-                    <input 
-                      type="file" 
-                      accept="image/*" 
-                      ref={fileInputRef} 
-                      className="hidden" 
-                      onChange={handleProfilePhotoUpload} 
+                    <input
+                      type="file"
+                      accept="image/*"
+                      ref={fileInputRef}
+                      className="hidden"
+                      onChange={handleProfilePhotoUpload}
                     />
-                    <button 
+                    <button
                       onClick={() => fileInputRef.current?.click()}
                       disabled={loadingAction === "photo"}
                       className="px-4 py-2 bg-[#1A1D21] hover:bg-[#23272C] border border-[#363A3D] rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
@@ -230,12 +230,12 @@ export default function AccountSettingsPage() {
                     <p className="text-xs text-dark-600 mt-2">JPG, GIF or PNG. 5MB max.</p>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-sm font-medium text-gray-300">First Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       className="w-full bg-[#1A1D21] border border-[#363A3D] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
@@ -243,8 +243,8 @@ export default function AccountSettingsPage() {
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-medium text-gray-300">Last Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       className="w-full bg-[#1A1D21] border border-[#363A3D] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
@@ -252,8 +252,8 @@ export default function AccountSettingsPage() {
                   </div>
                   <div className="space-y-1 md:col-span-2">
                     <label className="text-sm font-medium text-gray-300">Email Address (Primary)</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       value={primaryEmail || ""}
                       readOnly
                       className="w-full bg-[#1A1D21] border border-[#363A3D] rounded-xl px-4 py-2.5 text-gray-400 opacity-90 cursor-not-allowed"
@@ -263,7 +263,7 @@ export default function AccountSettingsPage() {
 
                 {hasProfileChanges && (
                   <div className="flex justify-end pt-2">
-                    <button 
+                    <button
                       onClick={handleUpdateProfile}
                       disabled={loadingAction === "profile"}
                       className="px-6 py-2.5 bg-green-500 hover:bg-green-600 border border-transparent rounded-xl text-sm font-semibold text-black transition-colors flex items-center gap-2"
@@ -284,17 +284,17 @@ export default function AccountSettingsPage() {
                 </h2>
               </div>
               <div className="p-6 space-y-8">
-                
+
                 {/* Password Box */}
                 <div>
                   <h3 className="font-medium text-white mb-1">Update Password</h3>
                   <p className="text-sm text-dark-600 mb-4">Ensure your account is using a long, random password to stay secure.</p>
-                  
+
                   <div className="space-y-4 max-w-lg">
                     <div className="space-y-1">
                       <label className="text-sm font-medium text-gray-300">Current Password</label>
-                      <input 
-                        type="password" 
+                      <input
+                        type="password"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                         className="w-full bg-[#1A1D21] border border-[#363A3D] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
@@ -302,8 +302,8 @@ export default function AccountSettingsPage() {
                     </div>
                     <div className="space-y-1">
                       <label className="text-sm font-medium text-gray-300">New Password</label>
-                      <input 
-                        type="password" 
+                      <input
+                        type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         className="w-full bg-[#1A1D21] border border-[#363A3D] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
@@ -311,15 +311,15 @@ export default function AccountSettingsPage() {
                     </div>
                     <div className="space-y-1">
                       <label className="text-sm font-medium text-gray-300">Confirm New Password</label>
-                      <input 
-                        type="password" 
+                      <input
+                        type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         className="w-full bg-[#1A1D21] border border-[#363A3D] rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors"
                       />
                     </div>
                     <div>
-                      <button 
+                      <button
                         onClick={handlePasswordUpdate}
                         disabled={loadingAction === "password" || (!currentPassword && !newPassword)}
                         className="px-5 py-2.5 bg-[#1A1D21] hover:bg-[#23272C] disabled:opacity-50 disabled:cursor-not-allowed border border-[#363A3D] rounded-xl text-sm font-medium text-white transition-colors flex items-center gap-2"
@@ -340,7 +340,7 @@ export default function AccountSettingsPage() {
                       <p className="text-sm text-dark-600 mt-1">Devices currently logged into your account.</p>
                     </div>
                     {sessions && sessions.length > 1 && (
-                      <button 
+                      <button
                         onClick={handleSignOutOtherSessions}
                         disabled={loadingAction === "signoutAll"}
                         className="px-5 py-2.5 bg-red-500/10 hover:bg-red-500 border border-red-500/30 hover:border-red-500 text-red-500 hover:text-white rounded-xl text-sm font-semibold transition-all flex items-center gap-2 shrink-0"
@@ -349,7 +349,7 @@ export default function AccountSettingsPage() {
                       </button>
                     )}
                   </div>
-                  
+
                   <div className="space-y-3">
                     {sessions?.map((session) => {
                       const isCurrent = currentSession && session.id === currentSession.id;
@@ -367,7 +367,7 @@ export default function AccountSettingsPage() {
                             </p>
                           </div>
                           {isCurrent ? (
-                             <span className="text-xs font-semibold text-green-500 bg-green-500/10 px-2 py-1 rounded-md border border-green-500/20">Current Device</span>
+                            <span className="text-xs font-semibold text-green-500 bg-green-500/10 px-2 py-1 rounded-md border border-green-500/20">Current Device</span>
                           ) : null}
                         </div>
                       )
@@ -378,48 +378,6 @@ export default function AccountSettingsPage() {
               </div>
             </section>
 
-            {/* 3. Connected Accounts */}
-            <section className="bg-[#131619] border border-[#363A3D] rounded-2xl overflow-hidden shadow-sm">
-              <div className="p-6 border-b border-[#363A3D]">
-                <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                  <Smartphone className="w-5 h-5 text-green-500" />
-                  Connected Accounts
-                </h2>
-              </div>
-              <div className="p-6 space-y-4">
-                <p className="text-sm text-dark-600 mb-6">Connect external providers to enable single sign-on.</p>
-                
-                <div className="grid gap-3">
-                  {/* Google */}
-                  <div className="flex items-center justify-between p-4 border border-[#363A3D] rounded-xl bg-[#1A1D21]/50 hover:bg-[#1A1D21] transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                        <FaGoogle className="w-5 h-5 text-black" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-white text-sm">Google</p>
-                        <p className={`text-xs ${isOauthConnected('oauth_google') ? "text-green-500" : "text-dark-600"}`}>
-                          {isOauthConnected('oauth_google') ? "Connected" : "Not connected"}
-                        </p>
-                      </div>
-                    </div>
-                    {isOauthConnected('oauth_google') ? (
-                      <span className="text-sm font-medium px-4 py-2 rounded-lg bg-[#23272C] text-gray-300">
-                         Managed
-                      </span>
-                    ) : (
-                      <button 
-                        onClick={() => handleOAuthConnect('oauth_google')}
-                        className="text-sm font-medium px-4 py-2 rounded-lg transition-colors bg-green-500/10 text-green-500 hover:bg-green-500/20"
-                      >
-                        Connect
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-              </div>
-            </section>
 
             {/* Verification */}
             <section className="bg-[#131619] border border-[#363A3D] rounded-2xl overflow-hidden shadow-sm">
@@ -466,7 +424,7 @@ export default function AccountSettingsPage() {
                     <h3 className="font-medium text-white">Delete Account</h3>
                     <p className="text-sm text-dark-600 mt-1 max-w-md">Once you delete your account, there is no going back. Please be certain.</p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setShowDeleteModal(true)}
                     className="px-6 py-2.5 bg-red-500/10 hover:bg-red-500 border border-red-500/50 hover:border-red-500 text-red-500 hover:text-white rounded-xl text-sm font-semibold transition-all flex items-center gap-2 shrink-0"
                   >
@@ -493,14 +451,14 @@ export default function AccountSettingsPage() {
               Are you absolutely sure you want to delete your GatherDeck account? This action cannot be undone and all your data will be permanently lost.
             </p>
             <div className="flex gap-3 justify-end">
-              <button 
+              <button
                 onClick={() => setShowDeleteModal(false)}
                 disabled={loadingAction === "delete"}
                 className="px-4 py-2 border border-[#363A3D] text-white hover:bg-[#1A1D21] rounded-xl text-sm font-medium transition-colors"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={handleDeleteAccount}
                 disabled={loadingAction === "delete"}
                 className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-medium transition-colors flex items-center gap-2"
