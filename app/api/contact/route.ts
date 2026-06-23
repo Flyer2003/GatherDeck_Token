@@ -19,8 +19,8 @@ export async function POST(req: Request) {
       port: parseInt(process.env.SMTP_PORT || '465'),
       secure: true, // true for 465, false for other ports
       auth: {
-        user: process.env.SMTP_USER, 
-        pass: process.env.SMTP_PASS, 
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
@@ -42,6 +42,7 @@ export async function POST(req: Request) {
         </div>
       `, // html body
     };
+
 
     // Only attempt to send if SMTP_USER is set, otherwise mock success for local dev if they haven't configured it yet
     if (process.env.SMTP_USER) {

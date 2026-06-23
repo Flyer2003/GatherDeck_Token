@@ -55,7 +55,7 @@ export default async function DashboardPage() {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex flex-col">
                     <span className="text-dark-600 text-sm font-medium mb-1 border-b border-dark-400/50 pb-1">Date</span>
-                    <span className="text-white font-semibold text-lg">{formatDateTime(booking.schedule).dateTime}</span>
+                    <span className="text-white font-semibold text-lg">{formatDateTime(booking.schedule).dateOnly}</span>
                   </div>
                   <div className="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-xs font-semibold border border-green-500/20">
                      Tracked
@@ -63,12 +63,31 @@ export default async function DashboardPage() {
                 </div>
                 
                 <div className="mb-4">
+                   <span className="text-dark-600 text-sm font-medium block mb-1">Event Type</span>
+                   <p className="text-white break-words capitalize">{booking.eventType || "N/A"}</p>
+                </div>
+
+                {booking.requirements && (
+                  <div className="mb-4">
+                     <span className="text-dark-600 text-sm font-medium block mb-1">Requirements</span>
+                     <p className="text-white break-words line-clamp-3 text-sm">{booking.requirements}</p>
+                  </div>
+                )}
+
+                {booking.eventSources && (
+                  <div className="mb-4">
+                     <span className="text-dark-600 text-sm font-medium block mb-1">Reference</span>
+                     <p className="text-white break-words text-sm">{booking.eventSources}</p>
+                  </div>
+                )}
+
+                <div className="mb-4">
                    <span className="text-dark-600 text-sm font-medium block mb-1">Description</span>
-                   <p className="text-white break-words line-clamp-3">{booking.description}</p>
+                   <p className="text-white break-words line-clamp-3 text-sm">{booking.description}</p>
                 </div>
 
                 {booking.note && (
-                  <div className="bg-[#1A1D21] p-3 rounded-xl border border-[#363A3D]">
+                  <div className="bg-[#1A1D21] p-3 rounded-xl border border-[#363A3D] mt-2">
                     <span className="text-dark-600 text-xs font-medium block mb-1">Note</span>
                     <p className="text-sm text-gray-300 italic break-words line-clamp-2">"{booking.note}"</p>
                   </div>
