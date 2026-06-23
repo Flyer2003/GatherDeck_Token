@@ -30,19 +30,17 @@ export default function Navbar() {
         : "bg-transparent border-transparent"
         }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/">
+        <Link href="/" className="flex items-center">
           <Image
-            src="/assets/icons/GatherDeck.svg"
+            src="/assets/icons/gatherdeck1.svg"
             alt="GatherDeck Logo"
-            width={120}
-            height={30}
+            width={280}
+            height={63}
             priority
-            className="w-auto h-7 sm:h-8"
           />
         </Link>
-
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/" className={navLinkClass}>
