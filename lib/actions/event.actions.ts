@@ -36,6 +36,19 @@ export const registerEvent = async (event: RegisterUserParams) => {
 
   try {
     (await auth()).protect();
+
+    // Upsert: return existing profile if one already exists for this user
+    const existing = await databases.listDocuments(
+      DATABASE_ID,
+      EVENT_COLLECTION_ID,
+      [Query.equal("userId", [event.userId])]
+    );
+
+    if (existing.documents.length > 0) {
+      return parseStringify(existing.documents[0]);
+    }
+
+    // Sanitize all string fields before writing to Appwrite
     const sanitizedEvent = Object.fromEntries(
       Object.entries(event).map(([key, value]) => [
         key,

@@ -66,7 +66,7 @@ export default async function LandingPage() {
             </p>
 
             <Link
-              href="/register"
+              href="/bookings/new"
               className="inline-block mt-10 rounded-xl bg-green-500 px-10 py-4 text-lg font-semibold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]"
             >
               Start Booking
@@ -167,7 +167,7 @@ export default async function LandingPage() {
               </p>
 
               <Link
-                href="/register"
+                href="/bookings/new"
                 className="inline-flex items-center justify-center mt-10 rounded-xl bg-green-500 px-12 py-4 text-lg font-bold text-black hover:bg-green-400 hover:scale-[1.03] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.25)] hover:shadow-[0_0_40px_rgba(34,197,94,0.5)]"
               >
                 Get Started

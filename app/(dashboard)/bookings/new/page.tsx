@@ -2,20 +2,23 @@ import Image from "next/image"
 import BookingForm from "@/components/forms/BookingForm"
 import { getEvent } from "@/lib/actions/event.actions"
 import { getCurrentUser } from "@/lib/actions/auth.actions"
+import { redirect } from "next/navigation"
 import * as Sentry from "@sentry/nextjs"
 
 export default async function NewBooking() {
 
+  // Auth is already enforced by the (dashboard) layout — user is always present here
   const user = await getCurrentUser()
 
   if (!user) {
-    throw new Error("User not authenticated")
+    redirect("/sign-in")
   }
 
   const event = await getEvent(user.$id)
 
+  // No registration profile yet — send to one-time registration page
   if (!event) {
-    return <p>No event found</p>
+    redirect("/register")
   }
 
   Sentry.metrics.count("user_view_booking_form", 1)

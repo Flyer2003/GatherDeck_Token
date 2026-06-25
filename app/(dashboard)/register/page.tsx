@@ -1,44 +1,33 @@
-"use client"
-
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Image from "next/image"
 import ApplicationForm from "@/components/forms/ApplicationForm"
-import { useUser } from "@clerk/nextjs"
+import { getCurrentUser } from "@/lib/actions/auth.actions"
+import { getEvent } from "@/lib/actions/event.actions"
+import { redirect } from "next/navigation"
 import * as Sentry from "@sentry/nextjs"
 
-export default function Register() {
+export default async function Register() {
 
-  const router = useRouter()
-  const { user, isLoaded } = useUser()
-
-  useEffect(() => {
-
-    if (isLoaded && !user) {
-      router.push("/sign-in")
-    } else if (isLoaded && user) {
-      Sentry.metrics.count("user_view_registration", 1)
-    }
-
-  }, [user, isLoaded, router])
-
-  if (!isLoaded) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
-      </div>
-    )
-  }
+  // Auth already enforced by dashboard layout — getCurrentUser() is safe to use directly
+  const user = await getCurrentUser()
 
   if (!user) {
-    return null
+    redirect("/sign-in")
   }
 
+  // If a profile already exists, skip registration — user goes straight to booking
+  const existingProfile = await getEvent(user.$id)
+
+  if (existingProfile) {
+    redirect("/bookings/new")
+  }
+
+  Sentry.metrics.count("user_view_registration", 1)
+
   const mappedUser = {
-    $id: user.id,
-    name: user.fullName || "",
-    email: user.primaryEmailAddress?.emailAddress || "",
-    phone: user.primaryPhoneNumber?.phoneNumber || "",
+    $id: user.$id,
+    name: user.name || "",
+    email: user.email || "",
+    phone: "",
   }
 
   return (
@@ -76,4 +65,4 @@ export default function Register() {
 
     </div>
   )
-}
+}

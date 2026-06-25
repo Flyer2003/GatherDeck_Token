@@ -31,7 +31,7 @@ const ApplicationForm = ({ user }: { user: User }) => {
         userId: user.$id,
       })
 
-      if (event) router.push("/bookings/new")
+      if (event) router.replace("/bookings/new")
     } catch (error) {
       console.error(error)
     } finally {

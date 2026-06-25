@@ -81,17 +81,29 @@ export const createBooking = async ({
 
                 const message = `🚨 *New Booking Created* 🚨\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Email:* ${email}\n*Type:* ${eventType}`;
 
-                await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        chat_id: tgChatId,
-                        text: message,
-                        parse_mode: "Markdown",
-                    }),
-                });
+                // Small delay to avoid Telegram rate-limit errors on rapid consecutive bookings
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+
+                // Timeout guard — abort if Telegram API takes longer than 5 seconds
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                try {
+                    await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            chat_id: tgChatId,
+                            text: message,
+                            parse_mode: "Markdown",
+                        }),
+                        signal: controller.signal,
+                    });
+                } finally {
+                    clearTimeout(timeoutId);
+                }
             }
         } catch (tgError) {
             console.error("Telegram notification failed:", tgError);
