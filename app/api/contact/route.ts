@@ -12,25 +12,27 @@ export async function POST(req: Request) {
       );
     }
 
-    // Configure your SMTP transporter
-    // For production, these should be securely stored in process.env
+    // Titan Mail (and most hosted SMTP servers) require 'from' to match
+    // the authenticated SMTP_USER. Using the visitor's email as 'from'
+    // causes an authentication/relay rejection → 500.
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      host: process.env.SMTP_HOST || 'smtp.titan.email',
       port: parseInt(process.env.SMTP_PORT || '465'),
-      secure: true, // true for 465, false for other ports
+      secure: true, // true for port 465
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
 
-    // Email options
     const mailOptions = {
-      from: `"${name}" <${email}>`, // sender address
-      replyTo: email,
-      to: 'support@gatherdeck.in', // list of receivers
-      subject: `New Support Request from ${name}`, // Subject line
-      text: `Name: ${name}\nEmail: ${email}\n\nQuestion:\n${question}`, // plain text body
+      // Must be the authenticated sender, not the visitor's email
+      from: `"GatherDeck Support" <${process.env.SMTP_USER}>`,
+      // Replies will go to the user who submitted the form
+      replyTo: `"${name}" <${email}>`,
+      to: 'support@gatherdeck.in',
+      subject: `New Support Request from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nQuestion:\n${question}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto;">
           <h2>New Support Request</h2>
@@ -40,25 +42,27 @@ export async function POST(req: Request) {
           <h3>Message / Question:</h3>
           <p style="white-space: pre-wrap;">${question}</p>
         </div>
-      `, // html body
+      `,
     };
 
-
-    // Only attempt to send if SMTP_USER is set, otherwise mock success for local dev if they haven't configured it yet
     if (process.env.SMTP_USER) {
       await transporter.sendMail(mailOptions);
     } else {
-      console.warn("SMTP_USER is not set. Mocking email delivery successfully for local testing.");
-      // Simulated delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.warn('SMTP_USER is not set. Skipping email for local dev.');
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
 
     return NextResponse.json(
       { message: 'Support request sent successfully' },
       { status: 200 }
     );
-  } catch (error) {
-    console.error('Error processing contact form:', error);
+  } catch (error: any) {
+    console.error('Contact form SMTP error:', {
+      message: error?.message,
+      code: error?.code,
+      response: error?.response,
+      responseCode: error?.responseCode,
+    });
     return NextResponse.json(
       { error: 'Failed to send support request' },
       { status: 500 }

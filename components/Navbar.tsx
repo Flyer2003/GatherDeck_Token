@@ -94,17 +94,11 @@ export default function Navbar() {
             </Link>
 
             <SignedIn>
-              <Link
-                href="/dashboard"
-                className={navLinkClass}
-                onClick={() => setMobileOpen(false)}
-              >
-                Dashboard
-              </Link>
-
-              <div className="pt-2">
-                <CustomUserMenu />
-              </div>
+              {/* Mobile variant renders user info + Dashboard + Account + Sign Out inline */}
+              <CustomUserMenu
+                variant="mobile"
+                onNavigate={() => setMobileOpen(false)}
+              />
             </SignedIn>
 
             <SignedOut>

@@ -10,10 +10,15 @@ import Image from "next/image";
 import {
   CalendarDays,
   Settings,
-  LogOut
+  LogOut,
 } from "lucide-react";
 
-export default function CustomUserMenu() {
+type Props = {
+  variant?: "desktop" | "mobile";
+  onNavigate?: () => void; // close drawer callback for mobile links
+};
+
+export default function CustomUserMenu({ variant = "desktop", onNavigate }: Props) {
   const { user, isLoaded } = useUser();
   const { signOut } = useClerk();
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +32,11 @@ export default function CustomUserMenu() {
     setMounted(true);
   }, []);
 
-  // Calculate position on open or window resize
+  // ── Desktop-only: Calculate dropdown position ──────────────────────────────
   const updatePosition = () => {
     if (buttonRef.current && isOpen) {
       const rect = buttonRef.current.getBoundingClientRect();
-      const dropdownWidth = 280; // w-72 approx 288px, matching Tailwind
+      const dropdownWidth = 280;
       setMenuPosition({
         top: rect.bottom + 12,
         left: rect.right - dropdownWidth,
@@ -40,6 +45,7 @@ export default function CustomUserMenu() {
   };
 
   useEffect(() => {
+    if (variant !== "desktop") return;
     if (isOpen) {
       updatePosition();
       window.addEventListener("resize", updatePosition);
@@ -49,49 +55,98 @@ export default function CustomUserMenu() {
         window.removeEventListener("scroll", updatePosition);
       };
     }
-  }, [isOpen]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, variant]);
 
-  // Close menu when clicking outside
+  // Close on outside click (desktop only)
   useEffect(() => {
+    if (variant !== "desktop") return;
     const handleClickOutside = (event: MouseEvent) => {
-      // If click is on the button, ignore (handled by button toggle logic)
-      if (buttonRef.current && buttonRef.current.contains(event.target as Node)) {
-        return;
-      }
-      // If click is outside the menu, close
+      if (buttonRef.current && buttonRef.current.contains(event.target as Node)) return;
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
+    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  }, [isOpen, variant]);
 
-  // Handle keyboard interaction
+  // Close on Escape
   useEffect(() => {
+    if (variant !== "desktop") return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-      }
+      if (event.key === "Escape") setIsOpen(false);
     };
-    if (isOpen) {
-      document.addEventListener("keydown", handleKeyDown);
-    }
+    if (isOpen) document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, variant]);
 
-  // Close menu on route change
+  // Close on route change (desktop)
   useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+    if (variant === "desktop") setIsOpen(false);
+  }, [pathname, variant]);
 
   if (!isLoaded || !user) return null;
 
   const email = user.primaryEmailAddress?.emailAddress;
-  const fullName = user.fullName || email?.split('@')[0] || "User";
+  const fullName = user.fullName || email?.split("@")[0] || "User";
 
+  // ── MOBILE VARIANT: Inline section inside the drawer ──────────────────────
+  if (variant === "mobile") {
+    return (
+      <div className="border-t border-[#2A2D31] pt-4 mt-2">
+        {/* User info row */}
+        <div className="flex items-center gap-3 px-1 pb-4">
+          <Image
+            src={user.imageUrl}
+            alt={fullName}
+            width={40}
+            height={40}
+            className="rounded-full object-cover shrink-0 border border-[#363A3D]"
+          />
+          <div className="flex flex-col overflow-hidden">
+            <span className="font-semibold text-white text-sm truncate">{fullName}</span>
+            <span className="text-xs text-dark-600 truncate">{email}</span>
+          </div>
+        </div>
+
+        {/* Nav links */}
+        <div className="flex flex-col gap-1">
+          <Link
+            href="/dashboard"
+            onClick={onNavigate}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-[#1A1D21] hover:text-white transition-colors"
+          >
+            <CalendarDays className="w-4 h-4 text-dark-600" />
+            My Bookings
+          </Link>
+          <Link
+            href="/account"
+            onClick={onNavigate}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-300 hover:bg-[#1A1D21] hover:text-white transition-colors"
+          >
+            <Settings className="w-4 h-4 text-dark-600" />
+            Account Settings
+          </Link>
+
+          <div className="h-[1px] w-full bg-[#363A3D] my-1" />
+
+          <button
+            onClick={() => {
+              onNavigate?.();
+              signOut({ redirectUrl: "/" });
+            }}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-500/10 transition-colors text-left w-full"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── DESKTOP VARIANT: Portal-based floating dropdown ────────────────────────
   const dropdownMenu = (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -102,7 +157,7 @@ export default function CustomUserMenu() {
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
           style={{ top: menuPosition.top, left: menuPosition.left }}
-          className="fixed w-[280px] rounded-2xl border border-[#363A3D] bg-[#131619]/95 backdrop-blur-xl p-2 shadow-2xl z-[9999] origin-top-right dropdown-overlay md:w-72"
+          className="fixed w-[280px] rounded-2xl border border-[#363A3D] bg-[#131619]/95 backdrop-blur-xl p-2 shadow-2xl z-[9999] origin-top-right"
         >
           {/* Header info */}
           <div className="flex items-center gap-3 p-3 border-b border-[#363A3D] mb-1">
