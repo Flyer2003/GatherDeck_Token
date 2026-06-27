@@ -13,10 +13,10 @@ const BUCKET_ID = process.env.NEXT_PUBLIC_BUCKET_ID!
 const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT!
 const PROJECT_ID = process.env.NEXT_PUBLIC_PROJECT_ID!
 
-export const createBooking = async ({
-    eventImages,
-    ...booking
-}: CreateBookingParams) => {
+export const createBooking = async (
+    booking: Omit<CreateBookingParams, "eventImages">,
+    eventImages?: FormData
+) => {
 
 
     try {

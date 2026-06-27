@@ -63,14 +63,13 @@ const BookingForm = ({
                 eventType: values.eventType,
                 requirements: values.requirements,
                 eventSources: values.eventSources,
-                eventImages: formData,
 
                 schedule: values.schedule,
                 description: values.description,
                 note: values.note,
 
                 privacyConsent: values.privacyConsent,
-            })
+            }, formData)
 
             if (booking) {
                 router.push(
