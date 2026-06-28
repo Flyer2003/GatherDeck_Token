@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin"],
+        disallow: ["/admin", "/dashboard", "/bookings", "/register", "/sign-in", "/sign-up"],
       },
     ],
     sitemap: "https://www.gatherdeck.in/sitemap.xml",
