@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { headers } from "next/headers";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -165,7 +164,8 @@ const jsonLd = {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: "https://www.gatherdeck.in/search?q={search_term_string}",
+          urlTemplate:
+            "https://www.gatherdeck.in/search?q={search_term_string}",
         },
         "query-input": "required name=search_term_string",
       },
@@ -173,36 +173,11 @@ const jsonLd = {
   ],
 };
 
-function isBotRequest(ua: string) {
-  return /bot|crawl|spider|google|bing|yahoo|duckduck|baidu|yandex|facebookexternalhit/i.test(ua);
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = headers();
-  const ua = headersList.get("user-agent") ?? "";
-  const isBot = isBotRequest(ua);
-
-  // Bots get a clean render — no Clerk SDK, no redirects, no auth JS
-  if (isBot) {
-    return (
-      <html lang="en">
-        <body className={cn("min-h-screen bg-dark-200 font-sans antialiased", fontSans.variable)}>
-          <ThemeProvider attribute="class" defaultTheme="dark">
-            {children}
-          </ThemeProvider>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
-        </body>
-      </html>
-    );
-  }
-
   return (
     <ClerkProvider appearance={clerkAppearance}>
       <html lang="en" suppressHydrationWarning>
