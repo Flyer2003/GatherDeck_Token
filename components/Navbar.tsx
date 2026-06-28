@@ -35,7 +35,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center">
           <Image
             src="/assets/icons/gatherdeck1.svg"
-            alt="GatherDeck Logo"
+            alt="gatherdeck Logo"
             width={280}
             height={63}
             priority

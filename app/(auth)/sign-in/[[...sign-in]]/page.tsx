@@ -56,7 +56,7 @@ export default function SignInPage() {
   return (
     <AuthCard
       title="Welcome Back"
-      subtitle="Sign in to your GatherDeck account"
+      subtitle="Sign in to your gatherdeck account"
     >
       <form onSubmit={submit} className="space-y-4">
         {error && (
@@ -97,8 +97,8 @@ export default function SignInPage() {
         </div>
 
         <div className="flex items-center space-x-2 pb-2">
-           <input type="checkbox" id="remember" className="rounded bg-[#1A1D21] border-[#363A3D] text-green-500 focus:ring-green-500 w-4 h-4 cursor-pointer" />
-           <label htmlFor="remember" className="text-sm text-dark-600 cursor-pointer">Remember Me</label>
+          <input type="checkbox" id="remember" className="rounded bg-[#1A1D21] border-[#363A3D] text-green-500 focus:ring-green-500 w-4 h-4 cursor-pointer" />
+          <label htmlFor="remember" className="text-sm text-dark-600 cursor-pointer">Remember Me</label>
         </div>
 
         <button

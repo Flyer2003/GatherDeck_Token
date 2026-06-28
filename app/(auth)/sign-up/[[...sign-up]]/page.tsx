@@ -32,11 +32,11 @@ export default function SignUpPage() {
   };
 
   const getPasswordStrength = () => {
-     if (password.length === 0) return 0;
-     if (password.length < 6) return 1;
-     if (password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password)) return 3;
-     if (password.length >= 6) return 2;
-     return 0;
+    if (password.length === 0) return 0;
+    if (password.length < 6) return 1;
+    if (password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password)) return 3;
+    if (password.length >= 6) return 2;
+    return 0;
   };
 
   const submit = async (e: React.FormEvent) => {
@@ -127,9 +127,9 @@ export default function SignUpPage() {
           >
             {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verify Identity"}
           </button>
-          
+
           <div className="text-center mt-4">
-             <button type="button" onClick={() => setPendingVerification(false)} className="text-sm text-dark-600 hover:text-white transition-colors">Entered wrong email?</button>
+            <button type="button" onClick={() => setPendingVerification(false)} className="text-sm text-dark-600 hover:text-white transition-colors">Entered wrong email?</button>
           </div>
         </form>
       </AuthCard>
@@ -139,7 +139,7 @@ export default function SignUpPage() {
   return (
     <AuthCard
       title="Create Account"
-      subtitle="Join GatherDeck and start planning"
+      subtitle="Join gatherdeck and start planning"
     >
       <form onSubmit={submit} className="space-y-4">
         {error && (
@@ -149,30 +149,30 @@ export default function SignUpPage() {
         )}
 
         <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
-               <label className="text-sm font-medium text-dark-600 block">First Name</label>
-               <input
-                 type="text"
-                 value={firstName}
-                 onChange={(e) => setFirstName(e.target.value)}
-                 required
-                 disabled={loading}
-                 className="w-full bg-[#131619] border border-[#363A3D] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all disabled:opacity-50"
-                 placeholder="John"
-               />
-            </div>
-            <div className="space-y-1">
-               <label className="text-sm font-medium text-dark-600 block">Last Name</label>
-               <input
-                 type="text"
-                 value={lastName}
-                 onChange={(e) => setLastName(e.target.value)}
-                 required
-                 disabled={loading}
-                 className="w-full bg-[#131619] border border-[#363A3D] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all disabled:opacity-50"
-                 placeholder="Doe"
-               />
-            </div>
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-dark-600 block">First Name</label>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              disabled={loading}
+              className="w-full bg-[#131619] border border-[#363A3D] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all disabled:opacity-50"
+              placeholder="John"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-dark-600 block">Last Name</label>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              disabled={loading}
+              className="w-full bg-[#131619] border border-[#363A3D] rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all disabled:opacity-50"
+              placeholder="Doe"
+            />
+          </div>
         </div>
 
         <div className="space-y-1">
@@ -201,7 +201,7 @@ export default function SignUpPage() {
           />
           {password && (
             <div className="flex gap-1 mt-1.5 h-1">
-              {[1,2,3].map((level) => (
+              {[1, 2, 3].map((level) => (
                 <div key={level} className={`h-full flex-1 rounded-full ${getPasswordStrength() >= level ? (getPasswordStrength() === 1 ? 'bg-red-500' : getPasswordStrength() === 2 ? 'bg-yellow-500' : 'bg-green-500') : 'bg-dark-400'}`}></div>
               ))}
             </div>
@@ -220,10 +220,10 @@ export default function SignUpPage() {
             placeholder="••••••••"
           />
         </div>
-        
+
         <div className="flex items-start space-x-2 pb-2 mt-2">
-           <input type="checkbox" required id="terms" className="mt-1 rounded bg-[#1A1D21] border-[#363A3D] text-green-500 focus:ring-green-500 w-4 h-4 cursor-pointer" />
-           <label htmlFor="terms" className="text-sm text-dark-600 cursor-pointer leading-tight">By continuing, I agree to the GatherDeck Terms of Service and Privacy Policy.</label>
+          <input type="checkbox" required id="terms" className="mt-1 rounded bg-[#1A1D21] border-[#363A3D] text-green-500 focus:ring-green-500 w-4 h-4 cursor-pointer" />
+          <label htmlFor="terms" className="text-sm text-dark-600 cursor-pointer leading-tight">By continuing, I agree to the gatherdeck Terms of Service and Privacy Policy.</label>
         </div>
 
         <button

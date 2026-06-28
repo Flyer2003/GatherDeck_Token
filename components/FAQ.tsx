@@ -3,12 +3,12 @@ import { ChevronDown, ArrowRight } from "lucide-react";
 
 const faqPreview = [
   {
-    question: "How does GatherDeck work?",
+    question: "How does gatherdeck work?",
     answer:
       "Submit your event requirements and connect with trusted vendors for venues, catering, photography, decoration, and event management.",
   },
   {
-    question: "Is GatherDeck free to use?",
+    question: "Is gatherdeck free to use?",
     answer:
       "Yes. Customers can browse and submit event requirements completely free.",
   },
@@ -20,7 +20,7 @@ const faqPreview = [
   {
     question: "Are vendors verified?",
     answer:
-      "We review vendor profiles before they are listed on GatherDeck.",
+      "We review vendor profiles before they are listed on gatherdeck.",
   },
 ];
 

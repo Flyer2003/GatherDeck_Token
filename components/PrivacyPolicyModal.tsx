@@ -24,25 +24,25 @@ export function PrivacyPolicyModal({ children }: { children: React.ReactNode }) 
           </p>
 
           <p>
-            Welcome to <strong>GatherDeck</strong> (“GatherDeck”, “we”, “our”, or “us”).
+            Welcome to <strong>gatherdeck</strong> (“gatherdeck”, “we”, “our”, or “us”).
             We are committed to protecting your privacy and handling your personal
             information responsibly.
           </p>
 
           <p>
-            This Privacy Policy explains how GatherDeck collects, uses, stores,
+            This Privacy Policy explains how gatherdeck collects, uses, stores,
             shares, and protects your information when you use our website,
             applications, and related services (“Services”).
           </p>
 
           <p>
-            By accessing or using GatherDeck, you agree to this Privacy Policy.
+            By accessing or using gatherdeck, you agree to this Privacy Policy.
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">1. Who We Are</h2>
 
           <p>
-            GatherDeck is an online platform that helps users discover, compare,
+            gatherdeck is an online platform that helps users discover, compare,
             communicate with, and book event-related services including:
           </p>
 
@@ -58,7 +58,7 @@ export function PrivacyPolicyModal({ children }: { children: React.ReactNode }) 
           </ul>
 
           <p>
-            GatherDeck acts as a technology platform connecting users and independent vendors.
+            gatherdeck acts as a technology platform connecting users and independent vendors.
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">2. Information We Collect</h2>
@@ -138,13 +138,13 @@ export function PrivacyPolicyModal({ children }: { children: React.ReactNode }) 
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">6. User Chats and Communication</h2>
           <p>
-            GatherDeck may store communications exchanged through the platform,
+            gatherdeck may store communications exchanged through the platform,
             including chats and inquiry messages, for customer support,
             dispute resolution, moderation, and service functionality.
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">7. Cookies and Tracking Technologies</h2>
-          <p>GatherDeck uses cookies and similar technologies to:</p>
+          <p>gatherdeck uses cookies and similar technologies to:</p>
           <ul className="list-disc pl-6 space-y-2">
             <li>Maintain login sessions</li>
             <li>Remember user preferences</li>
@@ -186,21 +186,21 @@ export function PrivacyPolicyModal({ children }: { children: React.ReactNode }) 
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">11. Vendor Responsibility</h2>
           <p>
-            Vendors listed on GatherDeck are independent third parties.
-            GatherDeck is not responsible for vendor conduct, pricing,
+            Vendors listed on gatherdeck are independent third parties.
+            gatherdeck is not responsible for vendor conduct, pricing,
             service quality, availability, or agreements made outside the platform.
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">12. Third-Party Links</h2>
           <p>
-            GatherDeck may contain links to third-party websites or services.
+            gatherdeck may contain links to third-party websites or services.
             We are not responsible for their content, privacy practices,
             or security policies.
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">13. Children's Privacy</h2>
           <p>
-            GatherDeck is not intended for individuals under 18 years of age.
+            gatherdeck is not intended for individuals under 18 years of age.
             We do not knowingly collect information from children.
           </p>
 
@@ -214,13 +214,13 @@ export function PrivacyPolicyModal({ children }: { children: React.ReactNode }) 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">15. Contact Us</h2>
           <p>For questions or privacy-related requests, contact:</p>
           <p>
-            <strong>GatherDeck Support</strong><br />
+            <strong>gatherdeck Support</strong><br />
             Email: <a href="mailto:support@gatherdeck.in" className="text-green-500 hover:underline">support@gatherdeck.in</a>
           </p>
 
           <h2 className="text-xl font-bold mt-8 mb-4 text-white">16. Consent</h2>
           <p>
-            By using GatherDeck, creating an account, or submitting information
+            By using gatherdeck, creating an account, or submitting information
             through the platform, you consent to the collection and use of
             information described in this Privacy Policy.
           </p>

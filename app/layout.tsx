@@ -15,11 +15,11 @@ const fontSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.gatherdeck.in"),
   title: {
-    default: "GatherDeck – Book Event Planners, Venues & Caterers in Kerala",
-    template: "%s | GatherDeck",
+    default: "gatherdeck – Book Event Planners, Venues & Caterers in Kerala",
+    template: "%s | gatherdeck",
   },
   description:
-    "GatherDeck is Kerala's #1 event vendor marketplace. Book verified event managers, caterers, venues & decorators in Kochi, Trivandrum, Kozhikode & Thrissur for weddings, corporate events & parties.",
+    "gatherdeck is Kerala's #1 event vendor marketplace. Book verified event managers, caterers, venues & decorators in Kochi, Trivandrum, Kozhikode & Thrissur for weddings, corporate events & parties.",
   keywords: [
     "event booking platform Kerala",
     "event vendors marketplace Kerala",
@@ -37,10 +37,10 @@ export const metadata: Metadata = {
     "wedding planners Kochi",
     "wedding planners Trivandrum",
   ],
-  applicationName: "GatherDeck",
-  authors: [{ name: "GatherDeck", url: "https://www.gatherdeck.in" }],
-  creator: "GatherDeck",
-  publisher: "GatherDeck",
+  applicationName: "gatherdeck",
+  authors: [{ name: "gatherdeck", url: "https://www.gatherdeck.in" }],
+  creator: "gatherdeck",
+  publisher: "gatherdeck",
   category: "Event Planning",
   robots: {
     index: true,
@@ -59,8 +59,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    siteName: "GatherDeck",
-    title: "GatherDeck – Book Event Planners, Venues & Caterers in Kerala",
+    siteName: "gatherdeck",
+    title: "gatherdeck – Book Event Planners, Venues & Caterers in Kerala",
     description:
       "Kerala's #1 marketplace to book verified event managers, caterers, venues & vendors for weddings, corporate events & celebrations.",
     url: "https://www.gatherdeck.in",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         url: "https://www.gatherdeck.in/og-event-marketplace.png",
         width: 1200,
         height: 630,
-        alt: "GatherDeck – Kerala's Event Vendor Marketplace",
+        alt: "gatherdeck – Kerala's Event Vendor Marketplace",
         type: "image/png",
       },
     ],
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@gatherdeck",
     creator: "@gatherdeck",
-    title: "GatherDeck – Book Event Planners, Venues & Caterers in Kerala",
+    title: "gatherdeck – Book Event Planners, Venues & Caterers in Kerala",
     description:
       "Find & book verified event planners, caterers, venues & vendors across Kerala for any occasion.",
     images: ["https://www.gatherdeck.in/og-event-marketplace.png"],
@@ -123,7 +123,7 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": "https://www.gatherdeck.in/#organization",
-      name: "GatherDeck",
+      name: "gatherdeck",
       url: "https://www.gatherdeck.in",
       logo: {
         "@type": "ImageObject",
@@ -132,7 +132,7 @@ const jsonLd = {
         height: 630,
       },
       description:
-        "GatherDeck is Kerala's leading event vendor marketplace to book trusted event managers, catering services, venues, and decorators.",
+        "gatherdeck is Kerala's leading event vendor marketplace to book trusted event managers, catering services, venues, and decorators.",
       areaServed: [
         { "@type": "City", name: "Kochi" },
         { "@type": "City", name: "Thiruvananthapuram" },
@@ -155,7 +155,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://www.gatherdeck.in/#website",
       url: "https://www.gatherdeck.in",
-      name: "GatherDeck",
+      name: "gatherdeck",
       description: "Kerala's #1 event vendor marketplace",
       publisher: {
         "@id": "https://www.gatherdeck.in/#organization",

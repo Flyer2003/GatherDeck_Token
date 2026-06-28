@@ -22,12 +22,12 @@ const faqs: FAQ[] = [
     // Booking
     {
         category: "Booking",
-        question: "How does GatherDeck work?",
-        answer: "GatherDeck helps you discover and connect with trusted event vendors including venues, caterers, photographers, decorators, production teams, and event managers. Simply submit your requirements and vendors will connect with you.",
+        question: "How does gatherdeck work?",
+        answer: "gatherdeck helps you discover and connect with trusted event vendors including venues, caterers, photographers, decorators, production teams, and event managers. Simply submit your requirements and vendors will connect with you.",
     },
     {
         category: "Booking",
-        question: "Is GatherDeck free to use?",
+        question: "Is gatherdeck free to use?",
         answer: "Yes. Browsing vendors and submitting booking requests is completely free for customers. You only pay for the services you decide to hire.",
     },
     {
@@ -67,7 +67,7 @@ const faqs: FAQ[] = [
     {
         category: "Events",
         question: "Do you offer full event planning services?",
-        answer: "While GatherDeck primarily connects you to individual vendors, we also host highly-rated Event Management tracking companies who can handle your entire event end-to-end.",
+        answer: "While gatherdeck primarily connects you to individual vendors, we also host highly-rated Event Management tracking companies who can handle your entire event end-to-end.",
     },
     {
         category: "Events",
@@ -78,13 +78,13 @@ const faqs: FAQ[] = [
     // Payments
     {
         category: "Payments",
-        question: "Does GatherDeck collect payments?",
-        answer: "No. Payment terms, advances, and final settlements are handled directly between you and the vendor. GatherDeck is purely a discovery and connection platform.",
+        question: "Does gatherdeck collect payments?",
+        answer: "No. Payment terms, advances, and final settlements are handled directly between you and the vendor. gatherdeck is purely a discovery and connection platform.",
     },
     {
         category: "Payments",
         question: "Are there any hidden charges?",
-        answer: "GatherDeck takes no commission from customers out-of-pocket. The pricing quoted by the vendor is what you pay them directly.",
+        answer: "gatherdeck takes no commission from customers out-of-pocket. The pricing quoted by the vendor is what you pay them directly.",
     },
     {
         category: "Payments",
@@ -191,7 +191,7 @@ export default function FAQPage() {
 
                             <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
                                 Find answers about bookings, vendors, events, payments and
-                                everything related to planning your perfect event with GatherDeck.
+                                everything related to planning your perfect event with gatherdeck.
                             </p>
                         </div>
                     </div>

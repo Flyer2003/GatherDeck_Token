@@ -25,8 +25,8 @@ export async function generateMetadata({
   const cityName = capitalizeFirstLetter(city);
 
   return {
-    title: `Best Event Planners & Venues in ${cityName} | GatherDeck`,
-    description: `Find and book the top verified event managers, caterers, venues, and decorators in ${cityName}, Kerala. GatherDeck makes event planning in ${cityName} easy and seamless.`,
+    title: `Best Event Planners & Venues in ${cityName} | gatherdeck`,
+    description: `Find and book the top verified event managers, caterers, venues, and decorators in ${cityName}, Kerala. gatherdeck makes event planning in ${cityName} easy and seamless.`,
     alternates: {
       canonical: `https://www.gatherdeck.in/city/${city}`,
     },

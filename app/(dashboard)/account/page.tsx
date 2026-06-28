@@ -181,7 +181,7 @@ export default function AccountSettingsPage() {
 
           <div className="mb-2">
             <h1 className="text-3xl font-bold text-white mb-2">Account Settings</h1>
-            <p className="text-dark-600">Manage your GatherDeck profile, security, and preferences.</p>
+            <p className="text-dark-600">Manage your gatherdeck profile, security, and preferences.</p>
           </div>
 
           {statusMessage && (
@@ -448,7 +448,7 @@ export default function AccountSettingsPage() {
               Delete Account
             </h3>
             <p className="text-gray-300 text-sm mb-6">
-              Are you absolutely sure you want to delete your GatherDeck account? This action cannot be undone and all your data will be permanently lost.
+              Are you absolutely sure you want to delete your gatherdeck account? This action cannot be undone and all your data will be permanently lost.
             </p>
             <div className="flex gap-3 justify-end">
               <button

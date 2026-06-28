@@ -41,7 +41,7 @@ export default async function NewBooking() {
           />
 
           <p className="copyright mt-12 text-sm text-dark-600">
-            © 2025 GatherDeck
+            © 2025 gatherdeck
           </p>
 
         </div>

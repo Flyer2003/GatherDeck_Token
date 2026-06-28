@@ -6,7 +6,7 @@ import { Star, Quote } from "lucide-react";
 const testimonials = [
   {
     name: "Archana",
-    text: "GatherDeck helped us organize our wedding effortlessly.",
+    text: "gatherdeck helped us organize our wedding effortlessly.",
     rating: 5,
   },
   {

@@ -25,21 +25,21 @@ const Success = async ({
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center px-6 py-10 relative overflow-y-auto">
-      
+
       {/* Background flair */}
       <div className="absolute top-1/4 -left-20 w-80 h-80 bg-green-500/10 blur-[120px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="w-full max-w-lg bg-[#1A1D21] border border-[#363A3D] rounded-3xl p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-10 flex flex-col items-center animate-in fade-in zoom-in duration-500">
-        
+
         <div className="mb-6 rounded-full bg-green-500/10 p-5 border border-green-500/20 flex items-center justify-center shadow-[0_0_30px_rgba(34,197,94,0.15)]">
-            <CheckCircle className="w-14 h-14 text-green-400 stroke-[1.5]" />
+          <CheckCircle className="w-14 h-14 text-green-400 stroke-[1.5]" />
         </div>
 
         <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">
           Request Submitted!
         </h2>
-        
+
         <p className="text-dark-600 text-center mb-8">
           Your booking request has been successfully captured. Our team will contact you shortly to confirm details.
         </p>
@@ -52,15 +52,15 @@ const Success = async ({
           </div>
 
           <div className="flex justify-between items-start border-b border-dark-400/50 pb-4 mb-4">
-             <span className="text-dark-600 font-medium">Description</span>
-             <span className="text-white font-semibold text-right max-w-[200px] break-words line-clamp-2">{booking.description}</span>
+            <span className="text-dark-600 font-medium">Description</span>
+            <span className="text-white font-semibold text-right max-w-[200px] break-words line-clamp-2">{booking.description}</span>
           </div>
 
           {booking.note && (
-             <div className="flex justify-between items-start">
-               <span className="text-dark-600 font-medium">Note</span>
-               <span className="text-white font-semibold text-right max-w-[200px] break-words line-clamp-2">{booking.note}</span>
-             </div>
+            <div className="flex justify-between items-start">
+              <span className="text-dark-600 font-medium">Note</span>
+              <span className="text-white font-semibold text-right max-w-[200px] break-words line-clamp-2">{booking.note}</span>
+            </div>
           )}
         </div>
 
@@ -72,7 +72,7 @@ const Success = async ({
         </Link>
 
         <p className="text-dark-600 text-sm mt-8">
-          © 2025 GatherDeck
+          © 2025 gatherdeck
         </p>
 
       </div>

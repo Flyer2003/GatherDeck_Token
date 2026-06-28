@@ -36,7 +36,7 @@ export default function ImageGrid({
         <div className="absolute h-[239.486px] left-0 rounded-[20px] top-[386.23px] w-[210.952px] overflow-hidden">
           {image1 && (
             <Image
-              alt="Premium wedding decoration set up by GatherDeck event vendors"
+              alt="Premium wedding decoration set up by gatherdeck event vendors"
               className="object-cover rounded-[20px]"
               src={image1}
               fill

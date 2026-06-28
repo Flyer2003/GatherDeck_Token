@@ -11,9 +11,9 @@ const FAQ = dynamic(() => import("@/components/FAQ"))
 import Footer from "@/components/Footer"
 
 export const metadata = {
-  title: "GatherDeck – Event Planners & Venues in Kochi, Trivandrum, Kozhikode",
+  title: "gatherdeck – Event Planners & Venues in Kochi, Trivandrum, Kozhikode",
   description:
-    "GatherDeck is Kerala's premium event vendor marketplace to book event managers, catering services, venues, and event requirements across Kochi, Trivandrum, Thrissur and Kozhikode.",
+    "gatherdeck is Kerala's premium event vendor marketplace to book event managers, catering services, venues, and event requirements across Kochi, Trivandrum, Thrissur and Kozhikode.",
   alternates: {
     canonical: "/",
   },
@@ -79,9 +79,9 @@ export default async function LandingPage() {
       <section className="container mx-auto px-6 py-16 md:py-24 relative z-10">
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose GatherDeck in Kerala?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose gatherdeck in Kerala?</h2>
             <p className="text-dark-600">
-              GatherDeck simplifies the event planning process. Whether you are in Kochi, Trivandrum, Kozhikode or Thrissur, find the perfect professionals to make your event extraordinary. From elegant weddings to grand corporate events, we bring the best vendors directly to you.
+              gatherdeck simplifies the event planning process. Whether you are in Kochi, Trivandrum, Kozhikode or Thrissur, find the perfect professionals to make your event extraordinary. From elegant weddings to grand corporate events, we bring the best vendors directly to you.
             </p>
           </div>
         </Reveal>
@@ -161,7 +161,7 @@ export default async function LandingPage() {
               <p className="mt-6 max-w-2xl mx-auto text-dark-600 text-lg leading-relaxed">
                 Discover trusted event managers, caterers, venues, decorators
                 and entertainment partners across Kerala. Book confidently and
-                create unforgettable experiences with GatherDeck.
+                create unforgettable experiences with gatherdeck.
               </p>
 
               <Link
