@@ -37,7 +37,7 @@ export default function EventCarousel() {
       else setVisibleCards(3);
     };
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -108,6 +108,7 @@ export default function EventCarousel() {
                   alt={event.title}
                   width={500}
                   height={350}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   loading="lazy"
                   className="w-full h-[22rem] object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />

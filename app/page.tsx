@@ -40,7 +40,7 @@ export default async function LandingPage() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover scale-105"
         >
           <source src="/assets/hero/GD_Logo.mp4" type="video/mp4" />
@@ -50,30 +50,28 @@ export default async function LandingPage() {
 
         <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-dark-200 to-transparent"></div>
 
-        <Reveal>
-          <div className="relative text-center max-w-5xl px-6">
+        <div className="relative text-center max-w-5xl px-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both">
 
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Book Trusted Event Vendors
-              <span className="block text-green-400">
-                For Every Occasion
-              </span>
-            </h1>
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+            Book Trusted Event Vendors
+            <span className="block text-green-400">
+              For Every Occasion
+            </span>
+          </h1>
 
-            <p className="mt-6 text-lg text-dark-600 max-w-2xl mx-auto">
-              Discover event managers, caterers, venues and everything
-              needed to create unforgettable celebrations.
-            </p>
+          <p className="mt-6 text-lg text-dark-600 max-w-2xl mx-auto">
+            Discover event managers, caterers, venues and everything
+            needed to create unforgettable celebrations.
+          </p>
 
-            <Link
-              href="/bookings/new"
-              className="inline-block mt-10 rounded-xl bg-green-500 px-10 py-4 text-lg font-semibold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]"
-            >
-              Start Booking
-            </Link>
+          <Link
+            href="/bookings/new"
+            className="inline-block mt-10 rounded-xl bg-green-500 px-10 py-4 text-lg font-semibold text-black hover:bg-green-400 hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(34,197,94,0.2)] hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]"
+          >
+            Start Booking
+          </Link>
 
-          </div>
-        </Reveal>
+        </div>
 
       </section>
 

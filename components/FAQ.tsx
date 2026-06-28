@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
@@ -28,7 +25,6 @@ const faqPreview = [
 ];
 
 export default function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
 
   return (
     <section className="container mx-auto max-w-4xl px-6 py-20">
@@ -44,28 +40,19 @@ export default function FAQ() {
 
       <div className="space-y-3">
         {faqPreview.map((faq, index) => (
-          <div
+          <details
             key={index}
-            className="rounded-xl border border-[#2A2D31] bg-[#171A1D]"
+            className="group rounded-xl border border-[#2A2D31] bg-[#171A1D] [&_summary::-webkit-details-marker]:hidden"
           >
-            <button
-              onClick={() => setOpen(open === index ? null : index)}
-              className="flex w-full items-center justify-between p-5 text-left"
-            >
-              <span className="font-medium">{faq.question}</span>
+            <summary className="flex w-full cursor-pointer items-center justify-between p-5 text-left font-medium outline-none">
+              <span>{faq.question}</span>
+              <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+            </summary>
 
-              <ChevronDown
-                className={`h-4 w-4 transition-transform ${open === index ? "rotate-180" : ""
-                  }`}
-              />
-            </button>
-
-            {open === index && (
-              <div className="px-5 pb-5 text-dark-600">
-                {faq.answer}
-              </div>
-            )}
-          </div>
+            <div className="px-5 pb-5 text-dark-600">
+              {faq.answer}
+            </div>
+          </details>
         ))}
       </div>
 
